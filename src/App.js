@@ -7,11 +7,16 @@ function App() {
     id:mapOptions.googleMapApiKey,
     googleMapsApiKey:mapOptions.googleMapApiKey,
   });
+
+
   return (
     <div className="App">
       <h1>gmap</h1>
-      <Map isLoaded={isLoaded}/>
+      <Map  isLoaded={isLoaded}/>
+      
+        
     </div>
+    
   );
 }
 
