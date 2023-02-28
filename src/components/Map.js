@@ -2,8 +2,7 @@ import { GoogleMap, Marker,InfoWindow} from "@react-google-maps/api";
 import Type_A from '../assets/A.png'
 import Type_B from '../assets/B.png'
 import Type_C from '../assets/C.png'
-import React,{useEffect, useState} from "react";
-import mapStyles from "../mapStyles";
+import React,{ useEffect, useState} from "react";
 import "./Map.css"
 
 const Map =(props) => {
@@ -17,182 +16,117 @@ const Map =(props) => {
         lat:22.11839,
         lng: 78.04667,
     };
+    const [markers,setMarker] = useState([]);
+    useEffect(()=>{
+        const getMarker = async ()=>{
+            const res = await fetch('http://localhost/gmap/markers.php')
+            const getData = await res.json();
+            
+            setMarker(getData);
+        }
+        getMarker();
+    },[])
     
-    const markers=[
-        {
-            name:"A1",
-            type:"A",
-            location:{
-            lat:22.11839,
-            lng: 78.04667,
-            },
-        },
-        {
-            name:"A2",
-            type:"A",
-            location:{
-            lat:22.11842,
-            lng: 78.04642,
-            },  
-        },
-        {
-            name:"A3",
-            type:"A",
-            location:{
-            lat:22.11853,
-            lng: 78.04627,
-            },
-        },
-        {
-            name:"B1",
-            type:"B",
-            location:{
-            lat:22.11844,
-            lng: 78.04673,
-            },
-        },
-        {
-            name:"B2",
-            type:"B",
-            location:{
-            lat:22.11847,
-            lng: 78.04648,
-            },
-        },
-        {
-            name:"B3",
-            type:"B",
-            location:{
-            lat:22.11838,
-            lng: 78.04544,
-            },
-        },
-        {
-            name:"B4",
-            type:"B",
-            location:{
-            lat:22.1184,
-            lat: 78.04502,
-            },
-        },
-        {
-            name:"C1",
-            type:"C",
-            location:{
-            lat:22.11878,
-            lng: 78.04624,
-            },
-        },
-        {
-            name:"C2",
-            type:"C",
-            location:{
-            lat:22.11856,
-            lng: 78.0463,
-            },
-        },
-        {
-            name:"C3",
-            type:"C",
-            location:{
-            lat:22.11858, 
-            lng:78.04549,
-            },
-        },
-        {
-            name:"C4",
-            type:"C",
-            location:{
-            lat:22.11833,
-            lng: 78.04553,
-            },
+    
+    const [selctedMarker,setSelectedMarker] = useState([]);
+    const [checkValue,setCheckValue] = useState([]);
+    const handleChange = (e) => {
+        const value = e.target.value;
+        const checked = e.target.checked;
+        console.log(value, checked);
+    
+        if (checked) {
+          setCheckValue([...checkValue, value]);
+        } else {
+          setCheckValue(checkValue.filter((e) => e !== value));
         }
-    ]
-    const [selctedMarker,setSelectedMarker] = useState(null);
-    const [checkValue,setCheckValue] = useState({checkedMarker:[]});
-    const handleChange = (e) =>{
-        
-        const {value} = e.target;
-        const checkedMarker = e.target.checked;
-        
-        const {checkedValue} = checkValue;
-        // console.log(` ${value} is ${checkedMarker}`)
-        if(checkedMarker){
-            
-                
-            
-            setCheckValue({
-                checkedMarker:[checkedMarker, value],
-                
-            })  
-        }
-        else{
-            setCheckValue({
-                checkedValue : [checkedMarker, value]  
-            });
-        }
-
-    }
+      };
+      
     const google = window.google
-    const points = [];
     
-    // function addMarker  (){
-        
-    //     for(let i =0;i<markers.length;i++){
-    //         const marker = new google.maps.Marker({
-    //             position: markers.location,
-    //             icon:markers.type=='A'?Type_A
-    //             :markers.type=='B'?Type_B:
-    //             marker.type=='C'?Type_C:"" ,
-    //             animation: google.maps.Animation.DROP,
-                    
-    //         })
-    //         points.push(marker);
-    //     }  
-    // }
-    return (isLoaded && ( <>
+    
+    return (isLoaded  && ( <>
         <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={19}
-        
+        zoom={18}
         >
         
+        {}
         
         {markers.map((marker) =>{
-            console.log(checkValue)
-            return(
-                <div key={marker.name}>
-                    <Marker position={marker.location} options={{
-                    icon:
-                    marker.type=='A'
-                    ?Type_A
-                    :marker.type=='B'
-                    ?Type_B:
-                    marker.type=='C'
-                    ?Type_C
-                    :"",
-                    }}/>
-                </div>
-                
-            )
-            
-        })
-        }
-        {console.log(markers)}
-        {console.log(points)}
-        {selctedMarker && (
+            console.log(selctedMarker)
+            if((checkValue.includes('A')) && marker.Marker_Type == 'A'){
+                return(
+                    <div key={marker.id}>
+                        <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
+                        icon:
+                        marker.Marker_Type=='A'
+                        ?Type_A
+                        :marker.Marker_Type=='B'
+                        ?Type_B:
+                        marker.Marker_Type=='C'
+                        ?Type_C
+                        :"",
+                        }}
+                        onClick={()=>{
+                            setSelectedMarker(marker);
+                        }}/>
+                    </div>    
+                )
+            }
+            if((checkValue.includes('B')) && marker.Marker_Type == 'B'){
+                return(
+                    <div key={marker.id}>
+                        <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
+                        icon:
+                        marker.Marker_Type=='A'
+                        ?Type_A
+                        :marker.Marker_Type=='B'
+                        ?Type_B:
+                        marker.Marker_Type=='C'
+                        ?Type_C
+                        :"",
+                        }}
+                        onClick={()=>{
+                            setSelectedMarker(marker);
+                        }}/>
+                    </div>
+                    
+                )}
+                if((checkValue.includes('C')) && marker.Marker_Type == 'C'){
+                    return(
+                        <div key={marker.id}>
+                            <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
+                            icon:
+                            marker.Marker_Type=='A'
+                            ?Type_A
+                            :marker.Marker_Type=='B'
+                            ?Type_B:
+                            marker.Marker_Type=='C'
+                            ?Type_C
+                            :"",
+                            }}
+                            onClick={()=>{
+                                setSelectedMarker(marker);
+                            }}/>
+                        </div>
+                        
+                    )}
+        })}
+        
+        {/* {selctedMarker && (
             <InfoWindow
-                position={selctedMarker.location}
+                position={{lat:parseFloat(selctedMarker.Latitude),lng:parseFloat(selctedMarker.Longitude)}}
                 onCloseClick={()=>{
                     setSelectedMarker(null);
                 }}
             >
                 <div>
-                    {selctedMarker.name}
+                    {selctedMarker.MarkerID}
                 </div>
             </InfoWindow>
-        )}
+        )} */}
         </GoogleMap>
         <div id="legend">
         <h4>Map Legends</h4>
