@@ -21,7 +21,6 @@ const Map =(props) => {
         const getMarker = async ()=>{
             const res = await fetch('http://localhost/gmap/markers.php')
             const getData = await res.json();
-            
             setMarker(getData);
         }
         getMarker();
@@ -56,7 +55,7 @@ const Map =(props) => {
         
         {markers.map((marker) =>{
             console.log(selctedMarker)
-            if((checkValue.includes('A')) && marker.Marker_Type == 'A'){
+            if((checkValue.includes(marker.Marker_Type))){
                 return(
                     <div key={marker.id}>
                         <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
@@ -75,44 +74,7 @@ const Map =(props) => {
                     </div>    
                 )
             }
-            if((checkValue.includes('B')) && marker.Marker_Type == 'B'){
-                return(
-                    <div key={marker.id}>
-                        <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
-                        icon:
-                        marker.Marker_Type=='A'
-                        ?Type_A
-                        :marker.Marker_Type=='B'
-                        ?Type_B:
-                        marker.Marker_Type=='C'
-                        ?Type_C
-                        :"",
-                        }}
-                        onClick={()=>{
-                            setSelectedMarker(marker);
-                        }}/>
-                    </div>
-                    
-                )}
-                if((checkValue.includes('C')) && marker.Marker_Type == 'C'){
-                    return(
-                        <div key={marker.id}>
-                            <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
-                            icon:
-                            marker.Marker_Type=='A'
-                            ?Type_A
-                            :marker.Marker_Type=='B'
-                            ?Type_B:
-                            marker.Marker_Type=='C'
-                            ?Type_C
-                            :"",
-                            }}
-                            onClick={()=>{
-                                setSelectedMarker(marker);
-                            }}/>
-                        </div>
-                        
-                    )}
+            
         })}
         
         {/* {selctedMarker && (
