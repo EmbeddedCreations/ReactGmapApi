@@ -1,4 +1,5 @@
 import { GoogleMap, Marker,InfoWindow,Polyline} from "@react-google-maps/api";
+//importing images,required api to plot the maps and markers
 import Type_A from '../assets/A.png'
 import Type_B from '../assets/B.png'
 import Type_C from '../assets/C.png'
@@ -11,21 +12,14 @@ const Map =(props) => {
         with:"200px",
         height:"600px",
     };
-// function sql(){
-//     var mysql = require("mysql");
-//     var con = mysql.createConnection({
-//         host:"localhost",
-//         user:"root",
-//         password:"",
-//         database:"mysql"
-//     })
-//     con.connect(function(err){
-//         if(err) throw err;
-//         var sql = "INSERT INTO Trip_details (Trip_date,Name,Trip,Marker_type,Total_dist) VALUES ?"
-        
-//     })
-// }
-    
+    const [selctedMarker,setSelectedMarker] = useState([]);
+    const [setCoords,setSelectedCoords] = useState([]);
+    const [checkValue,setCheckValue] =  useState([]);
+    const [m_type,setM_type] = useState(null);
+    const [values,setValues] = useState([]);
+    const [trip,set_trip] = useState("");
+    const [markers,setMarker] = useState([]);
+   //Function To calculate Distance between two markers
     function haversine_distance(mk1, mk2) {
         var R = 3958.8; // Radius of the Earth in miles
         var rlat1 = mk1.lat * (Math.PI / 180); // Convert degrees to radians
@@ -47,6 +41,7 @@ const Map =(props) => {
           );
         return d*1.6;
       }
+      // Calculating the cumalative Distance of all the markers Selected
     const calcute_final_dist = () => {
         var dist = 0;
         for(let i =0;i<setCoords.length-1;i++){
@@ -54,12 +49,13 @@ const Map =(props) => {
         }
         return dist.toFixed(2);
     }
+
     const center ={
         lat:22.11839,
         lng: 78.04667,
     };
-    const dist = [];
-    const [markers,setMarker] = useState([]);
+    
+    //Fetching of Data from localHost From mysql
     useEffect(()=>{
         const getMarker = async ()=>{
             const res = await fetch('http://localhost/gmap/markers.php')
@@ -70,16 +66,11 @@ const Map =(props) => {
     },[])
     
     
-    const [selctedMarker,setSelectedMarker] = useState([]);
-    const [setCoords,setSelectedCoords] = useState([]);
-    const [checkValue,setCheckValue] =  useState([]);
-    const [m_type,setM_type] = useState(null);
-    const [values,setValues] = useState([]);
-    const [trip,set_trip] = useState("");
+    //Function to see the legend checkbox
     const handleChange = (e) => {
         const value = e.target.value;
         const checked = e.target.checked;
-        console.log(value, checked);
+        //console.log(value, checked);
     
         if (checked) {
           setCheckValue([...checkValue, value]);
@@ -87,13 +78,15 @@ const Map =(props) => {
           setCheckValue(checkValue.filter((e) => e !== value));
         }
       };
+
+    //Function to display cummaltative distance on console
     const SendDistance =()=>{
         var d = calcute_final_dist();
         console.log("distance: - ",d);
     }
     const google = window.google
     
-    
+    //Loading of Google Map
     return (isLoaded  && ( <>
         <GoogleMap
         mapContainerStyle={containerStyle}
@@ -104,7 +97,7 @@ const Map =(props) => {
         {}
         
         {markers.map((marker) =>{
-            // console.log(selctedMarker)
+            //Conditional plotting of markers according to legend
             if((checkValue.includes(marker.Marker_Type))){
                 return(
                     <div key={marker.id}>
@@ -119,14 +112,16 @@ const Map =(props) => {
                         :"",
                         }}
                         onClick={()=>{
+                            //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
                             setSelectedMarker(marker);
                             const coordinates ={lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)};
-                            console.log(setCoords.length);
-                            console.log(m_type);
+                            // console.log(setCoords.length);
+                            // console.log(m_type);
+                            
+                            //pushing cordinates/markers selected into an array(setCoords)
                             if(setCoords.length<1){
                                 setSelectedCoords([...setCoords,coordinates])
                                 setM_type(marker.Marker_Type);
-
                             }else{
                                 console.log(marker.Marker_Type);
                                 if(m_type == marker.Marker_Type){
@@ -140,7 +135,7 @@ const Map =(props) => {
             }
             
         })}
-        
+        {/* Code to Deploy Polyline */}
         {selctedMarker && (
             <Polyline
             path = {setCoords}
@@ -150,6 +145,7 @@ const Map =(props) => {
             
         )}
         </GoogleMap>
+        {/* Code For Legend */}
         <div id="legend">
         <h4>Map Legends</h4>
         <div className="style">

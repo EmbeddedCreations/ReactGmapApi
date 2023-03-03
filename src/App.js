@@ -12,9 +12,8 @@ function App() {
   return (
     <div className="App">
       <h1>gmap</h1>
+      {/* Loading of map Main code in map.js */}
       <Map  isLoaded={isLoaded}/>
-      
-        
     </div>
     
   );
