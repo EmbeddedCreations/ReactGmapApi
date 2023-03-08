@@ -9,16 +9,16 @@ import "./Map.css"
 const Map =(props) => {
     const { isLoaded } = props;
     const containerStyle ={
-        with:"200px",
-        height:"600px",
+        height: "100vh",
+        width: "100%",
     };
     const [selctedMarker,setSelectedMarker] = useState([]);
     const [setCoords,setSelectedCoords] = useState([]);
-    const [checkValue,setCheckValue] =  useState([]);
     const [m_type,setM_type] = useState(null);
     const [values,setValues] = useState([]);
     const [trip,set_trip] = useState("");
     const [markers,setMarker] = useState([]);
+    const [checkValue,setCheckValue] =  useState([]);
    //Function To calculate Distance between two markers
     function haversine_distance(mk1, mk2) {
         var R = 3958.8; // Radius of the Earth in miles
@@ -78,27 +78,35 @@ const Map =(props) => {
           setCheckValue(checkValue.filter((e) => e !== value));
         }
       };
+    const handleTrip = () =>{
+        if(props.Clear == 1){
+            set_trip("");
+        }
+        
 
+    }
     //Function to display cummaltative distance on console
     const SendDistance =()=>{
         var d = calcute_final_dist();
         console.log("distance: - ",d);
+        props.getDist(d);
     }
     const google = window.google
     
     //Loading of Google Map
-    return (isLoaded  && ( <>
+    return (isLoaded  && ( 
+    <div className="mapContainer">
         <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={18}
         >
-        
         {}
         
         {markers.map((marker) =>{
             //Conditional plotting of markers according to legend
             if((checkValue.includes(marker.Marker_Type))){
+                
                 return(
                     <div key={marker.id}>
                         <Marker position={{lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)}} options={{
@@ -111,9 +119,11 @@ const Map =(props) => {
                         ?Type_C
                         :"",
                         }}
+
                         onClick={()=>{
                             //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
                             setSelectedMarker(marker);
+                            
                             const coordinates ={lat:parseFloat(marker.Latitude),lng:parseFloat(marker.Longitude)};
                             // console.log(setCoords.length);
                             // console.log(m_type);
@@ -121,19 +131,29 @@ const Map =(props) => {
                             //pushing cordinates/markers selected into an array(setCoords)
                             if(setCoords.length<1){
                                 setSelectedCoords([...setCoords,coordinates])
+                                
                                 setM_type(marker.Marker_Type);
+                                set_trip(trip+marker.MarkerID);
+                                console.log(trip);
                             }else{
                                 console.log(marker.Marker_Type);
                                 if(m_type == marker.Marker_Type){
-                                    setSelectedCoords([...setCoords,coordinates])       
+                                    setSelectedCoords([...setCoords,coordinates])
+                                     
+                                    set_trip(trip+"->"+marker.MarkerID);
+                                    props.getTrip(trip);  
                                 }
+                                
                             }
                             
                         }}/>
                     </div>    
                 )
             }
-            
+            if(props.Clear == 1){
+                props.getTrip("");
+                
+            }
         })}
         {/* Code to Deploy Polyline */}
         {selctedMarker && (
@@ -167,7 +187,7 @@ const Map =(props) => {
             <button onClick={SendDistance}>Calculate Distance</button>
         </div>
     </div>
-        </>
+        </div>
     )
     );
 };
