@@ -4,7 +4,7 @@ import { mapOptions } from "./components/MapConfiguration";
 import SideBar from "./components/SideBar";
 import "./App.css"
 import { useState } from "react";
-import { CssBaseline,Grid, List } from "@mui/material";
+
 function App() {
   const { isLoaded } = useJsApiLoader({
     id:mapOptions.googleMapApiKey,
