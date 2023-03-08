@@ -119,7 +119,7 @@ const Map =(props) => {
                         ?Type_C
                         :"",
                         }}
-
+                        title={(marker.MarkerID)}
                         onClick={()=>{
                             //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
                             setSelectedMarker(marker);
