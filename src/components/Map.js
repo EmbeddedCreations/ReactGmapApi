@@ -85,6 +85,12 @@ const Map =(props) => {
         
 
     }
+    function Ut(t){
+        
+                set_trip(trip+"->"+t);
+          
+          
+    }
     //Function to display cummaltative distance on console
     const SendDistance =()=>{
         var d = calcute_final_dist();
@@ -133,18 +139,27 @@ const Map =(props) => {
                                 setSelectedCoords([...setCoords,coordinates])
                                 
                                 setM_type(marker.Marker_Type);
-                                set_trip(trip+marker.MarkerID);
+                                // const t = marker.MarkerID
+                                console.log(marker.MarkerID);
+                                
+                                Ut(marker.MarkerID);
+                                
                                 console.log(trip);
+                                props.getTrip(trip);
                             }else{
-                                console.log(marker.Marker_Type);
+                                
                                 if(m_type == marker.Marker_Type){
                                     setSelectedCoords([...setCoords,coordinates])
-                                     
-                                    set_trip(trip+"->"+marker.MarkerID);
-                                    props.getTrip(trip);  
+                                    console.log(setCoords);
+                                    console.log(marker.MarkerID);
+                                    Ut(marker.MarkerID);
+                                    console.log(trip);  
                                 }
-                                
+                               
                             }
+                            
+                            // console.log(trip);
+                            props.getTrip(trip);
                             
                         }}/>
                     </div>    
