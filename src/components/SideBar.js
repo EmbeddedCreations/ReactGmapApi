@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import "./SideBar.css"
 import axios from "axios";
 const SideBar =(props)=>{
-    const url = "";
+    // const url = "";
     const trip = props.trip;
     const dist = props.dist;
     
     const [date,setDate] = useState('');
     const [name,setName] = useState('');
-    const[posts,setposts] = useState([]);
+    // const[posts,setposts] = useState([]);
 
     const handleSubmit=()=>{
         
@@ -32,7 +32,7 @@ const SideBar =(props)=>{
 
             axios({
                 method:'post',
-                url : 'http://localhost/gmap/markers.php',
+                url : 'http://localhost/markers.php',
                 data: tripData,
                 config:{headers : {'Content-Type':'multipart/form-data'}}
 
@@ -59,8 +59,9 @@ const SideBar =(props)=>{
                 <input className ="input" type="date" onChange={(e)=>setDate(e.target.value)}></input>
             </div>
             <div>
-                <button className="btn" onClick={handleSubmit}>Select Route</button>
+                <button className="btn" onClick={handleSubmit}>Enter Record</button>
                 <button className="btn" onClick={()=>window.location.reload(true)}>Clear Route</button>
+                <button className="btn" onClick={()=>window.location.reload(true)}>Delete selected Node</button>
             </div>
             <div>
                 <p className="label">Trip:</p>
