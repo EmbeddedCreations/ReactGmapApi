@@ -32,7 +32,7 @@ const SideBar =(props)=>{
 
             axios({
                 method:'post',
-                url : 'http://localhost/markers.php',
+                url : 'http://localhost/gmap/markers.php',
                 data: tripData,
                 config:{headers : {'Content-Type':'multipart/form-data'}}
 

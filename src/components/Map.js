@@ -77,6 +77,20 @@ const Map = (props) => {
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
+    scope.addEventListener ("contextmenu", (event) => {
+                            event.preventDefault();
+                            
+                            const { clientX: mouseX, clientY: mouseY } = event;
+                            
+                            contextMenu2.style.top = `${mouseY}px`;
+                            contextMenu2.style.left = `${mouseX}px`;
+                            contextMenu2.classList.add("visible");
+                        });
+                        scope.addEventListener("click",(e) => {
+                            if(e.target.offsetParent != contextMenu2){
+                                contextMenu2.classList.remove("visible");
+                            }
+                        });
 
     const coordinates = {
       lat: parseFloat(marker.Latitude),
@@ -103,29 +117,29 @@ const Map = (props) => {
       }
     }
   };
-  // const handleMarkerDoubleClick = (markerIndex) => {
-  //   console.log(selctedMarker);
-  //   console.log(markerIndex);
-  //   console.log(setCoords);
-  //   // const updatedMarkers = [...selctedMarker];
-  //   const updatedCoords = [...setCoords];
-  //   console.log(markerIndex);
-  //   // console.log(updatedMarkers);
-  //   // Remove the marker and its coordinates from the arrays
-  //   // updatedMarkers.splice(markerIndex, 1);
-  //   updatedCoords.splice(markerIndex, 1);
+  const handleMarkerDoubleClick = (markerIndex) => {
+    // console.log(selctedMarker);
+    // console.log(markerIndex);
+    console.log(setCoords);
+    // const updatedMarkers = [...selctedMarker];
+    const updatedCoords = [...setCoords];
+    // console.log(markerIndex);
+    // console.log(updatedMarkers);
+    // Remove the marker and its coordinates from the arrays
+    // updatedMarkers.splice(markerIndex, 1);
+    updatedCoords.splice(markerIndex, 1);
 
-  //   // Update the state with the new arrays
-  //   // setSelectedMarker(updatedMarkers);
-  //   setSelectedCoords(updatedCoords);
-  //   console.log(updatedCoords);
-  //   console.log("executed sucessfully");
-  // };
+    // Update the state with the new arrays
+    // setSelectedMarker(updatedMarkers);
+    setSelectedCoords(updatedCoords);
+    console.log(updatedCoords);
+    console.log("executed sucessfully");
+  };
 
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/markers.php");
+      const res = await fetch("http://localhost/gmap/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };
@@ -144,6 +158,8 @@ const Map = (props) => {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
   };
+  const contextMenu2 = document. getElementById( "context-menu");
+  const scope = document.querySelector(".App");
   const handleTrip = () => {
     if (props.Clear == 1) {
       set_trip("");
@@ -191,17 +207,26 @@ const Map = (props) => {
                           : "",
                     }}
                     title={marker.MarkerID}
-                    // onDblClick={() => handleMarkerDoubleClick(marker.id)}
-                    onClick={() =>{handleMarkerClick(marker);hideContextMenu()} }
+                 onrightlClick={() => console.log("Right Click")}
+                    onClick={() =>{handleMarkerClick(marker);hideContextMenu()
+                        
+                    }    
+                     
+                    }
+                    
                     // onClick={hideContextMenu}
                    />
                 </div>
               );
             }
+            
+            
+            
             if (props.Clear == 1) {
               props.getTrip("");
             }
           })}
+          
           {/* Code to Deploy Polyline */}
           {selctedMarker && (
             <Polyline
@@ -212,8 +237,12 @@ const Map = (props) => {
             />
           )}
           {showRightMenu ? <ContextMenus postion={postion} /> : ""}
+          
         </GoogleMap>
         {/* Code For Legend */}
+        <div id="context-menu">
+            <div className="item">Delete</div> 
+        </div>
         <div id="legend">
           <h4>Map Legends</h4>
           <div className="style">
@@ -265,6 +294,7 @@ const Map = (props) => {
             <button onClick={SendDistance}>Calculate Distance</button>
           </div>
         </div>
+
        
       </div>
       
