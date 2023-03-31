@@ -8,25 +8,7 @@
   .style{
     display: flex;
   }
-  #context-menu {
-    position: fixed; z-index: 10000;
-    width: 150px;
-    background: #1b1a1a; 
-    border-radius: 5px;
-    padding: 10px;
-    color: white;
-    }
-    #context-menu item {
-    padding: 8px 10px; font-size: 15px; color: #eee;
-    cursor: pointer;
-    border-radius: inherit;
-    }
-    #context-menu.item:hover {
-    background: #343434;
-    }
-    #context-menu.visible {
-      display: block;
-      }
+  
   .cbox {
     height: 15px;
     width: 25px;
@@ -59,21 +41,4 @@
     margin-top: 15px; */
     vertical-align: middle;
   }
-  .delete-menu {
-    position: absolute;
-    background: white;
-    padding: 3px;
-    color: #666;
-    font-weight: bold;
-    border: 1px solid #999;
-    font-family: sans-serif;
-    font-size: 12px;
-    box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.3);
-    margin-top: -10px;
-    margin-left: 10px;
-    cursor: pointer;
-  }
   
-  .delete-menu:hover {
-    background: #eee;
-  }

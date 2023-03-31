@@ -1,7 +1,6 @@
 import {
   GoogleMap,
   Marker,
-  InfoWindow,
   Polyline,
 } from "@react-google-maps/api";
 // import { Easing, Tween, update } from "@tweenjs/tween.js";
@@ -11,7 +10,6 @@ import Type_B from "../assets/B.png";
 import Type_C from "../assets/C.png";
 import React, { useEffect, useState } from "react";
 import "./Map.css";
-import ContextMenus from "./ContextMenus";
 
 const Map = (props) => {
   const { isLoaded } = props;
@@ -64,33 +62,12 @@ const Map = (props) => {
     lat: 22.11839,
     lng: 78.04667,
   };
-  // const contextMenu = (e) => {
-  //   e.preventDefault();
-  //   setPosition({ x: e.pageX, y: e.pageY });
-  //   setShowRightMenu(true);
-  // };
 
-  const hideContextMenu = () => {
-    setShowRightMenu(false);
-    console.log("hide");
-  };
+
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
-    scope.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-
-      const { clientX: mouseX, clientY: mouseY } = event;
-
-      contextMenu2.style.top = `${mouseY}px`;
-      contextMenu2.style.left = `${mouseX}px`;
-      contextMenu2.classList.add("visible");
-    });
-    scope.addEventListener("click", (e) => {
-      if (e.target.offsetParent != contextMenu2) {
-        contextMenu2.classList.remove("visible");
-      }
-    });
+    
 
     const coordinates = {
       lat: parseFloat(marker.Latitude),
@@ -102,7 +79,7 @@ const Map = (props) => {
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
-
+      setValues([...values,marker.MarkerID]);
       setM_type(marker.Marker_Type);
       set_trip(trip + marker.MarkerID);
       // console.log(trip);
@@ -111,12 +88,16 @@ const Map = (props) => {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !trip.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
+        setValues([...values,JSON.stringify(marker.MarkerID)]);
         // console.log(trip);
         set_trip(trip + "->" + marker.MarkerID);
         // props.getTrip(trip);
       }if(trip.includes(marker.MarkerID)){
         console.log(trip);
         console.log(setCoords);
+        console.log(values);
+        console.log(JSON.stringify(marker.MarkerID));
+       console.log(values.findIndex(JSON.stringify(marker.MarkerID)));
         console.log("adrak")
         
         console.log("lasan");
@@ -126,24 +107,24 @@ const Map = (props) => {
   useEffect(()=>{
     props.getTrip(trip);
   },[trip])
-  const handleMarkerDoubleClick = (markerIndex) => {
-    console.log(selctedMarker);
-    console.log(markerIndex);
-    console.log(setCoords);
-    // const updatedMarkers = [...selctedMarker];
-    const updatedCoords = [...setCoords];
-    // console.log(markerIndex);
-    // console.log(updatedMarkers);
-    // Remove the marker and its coordinates from the arrays
-    // updatedMarkers.splice(markerIndex, 1);
-    updatedCoords.splice(markerIndex, 1);
+  // const handleMarkerDoubleClick = (markerIndex) => {
+  //   console.log(selctedMarker);
+  //   console.log(markerIndex);
+  //   console.log(setCoords);
+  //   // const updatedMarkers = [...selctedMarker];
+  //   const updatedCoords = [...setCoords];
+  //   // console.log(markerIndex);
+  //   // console.log(updatedMarkers);
+  //   // Remove the marker and its coordinates from the arrays
+  //   // updatedMarkers.splice(markerIndex, 1);
+  //   updatedCoords.splice(markerIndex, 1);
 
-    // Update the state with the new arrays
-    // setSelectedMarker(updatedMarkers);
-    setSelectedCoords(updatedCoords);
-    console.log(updatedCoords);
-    console.log("executed sucessfully");
-  };
+  //   // Update the state with the new arrays
+  //   // setSelectedMarker(updatedMarkers);
+  //   setSelectedCoords(updatedCoords);
+  //   console.log(updatedCoords);
+  //   console.log("executed sucessfully");
+  // };
 
   //Fetching of Data from localHost From mysql
   useEffect(() => {
@@ -167,13 +148,8 @@ const Map = (props) => {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
   };
-  const contextMenu2 = document.getElementById("context-menu");
-  const scope = document.querySelector(".App");
-  const handleTrip = () => {
-    if (props.Clear == 1) {
-      set_trip("");
-    }
-  };
+
+ 
   //Function to display cummaltative distance on console
   const SendDistance = () => {
     var d = calcute_final_dist();
@@ -215,8 +191,7 @@ const Map = (props) => {
                           ? Type_C
                           : "",
                     }}
-                    title={marker.MarkerID}
-                    onDblClick={() => hideContextMenu()}
+                    title={marker.MarkerID}                    
                     onClick={() => handleMarkerClick(marker)}
                   />
                 </div>
@@ -237,12 +212,9 @@ const Map = (props) => {
               strokeWeight={2}
             />
           )}
-          {showRightMenu ? <ContextMenus postion={postion} /> : ""}
+          
         </GoogleMap>
         {/* Code For Legend */}
-        <div id="context-menu">
-          <div className="item">Delete</div>
-        </div>
         <div id="legend">
           <h4>Map Legends</h4>
           <div className="style">
