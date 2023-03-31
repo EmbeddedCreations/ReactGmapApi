@@ -105,41 +105,50 @@ const Map = (props) => {
 
       setM_type(marker.Marker_Type);
       set_trip(trip + marker.MarkerID);
-      console.log(trip);
-      props.getTrip(trip);
+      // console.log(trip);
+      // props.getTrip(trip);
     } else {
       console.log(marker.Marker_Type);
-      if (m_type == marker.Marker_Type) {
+      if (m_type == marker.Marker_Type && !trip.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
-        console.log(trip);
+        // console.log(trip);
         set_trip(trip + "->" + marker.MarkerID);
-        props.getTrip(trip);
+        // props.getTrip(trip);
+      }if(trip.includes(marker.MarkerID)){
+        console.log(trip);
+        console.log(setCoords);
+        console.log("adrak")
+        
+        console.log("lasan");
       }
     }
   };
-  // const handleMarkerDoubleClick = (markerIndex) => {
-  //   // console.log(selctedMarker);
-  //   // console.log(markerIndex);
-  //   console.log(setCoords);
-  //   // const updatedMarkers = [...selctedMarker];
-  //   const updatedCoords = [...setCoords];
-  //   // console.log(markerIndex);
-  //   // console.log(updatedMarkers);
-  //   // Remove the marker and its coordinates from the arrays
-  //   // updatedMarkers.splice(markerIndex, 1);
-  //   updatedCoords.splice(markerIndex, 1);
+  useEffect(()=>{
+    props.getTrip(trip);
+  },[trip])
+  const handleMarkerDoubleClick = (markerIndex) => {
+    console.log(selctedMarker);
+    console.log(markerIndex);
+    console.log(setCoords);
+    // const updatedMarkers = [...selctedMarker];
+    const updatedCoords = [...setCoords];
+    // console.log(markerIndex);
+    // console.log(updatedMarkers);
+    // Remove the marker and its coordinates from the arrays
+    // updatedMarkers.splice(markerIndex, 1);
+    updatedCoords.splice(markerIndex, 1);
 
-  //   // Update the state with the new arrays
-  //   // setSelectedMarker(updatedMarkers);
-  //   setSelectedCoords(updatedCoords);
-  //   console.log(updatedCoords);
-  //   console.log("executed sucessfully");
-  // };
+    // Update the state with the new arrays
+    // setSelectedMarker(updatedMarkers);
+    setSelectedCoords(updatedCoords);
+    console.log(updatedCoords);
+    console.log("executed sucessfully");
+  };
 
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/markers.php");
+      const res = await fetch("http://localhost/gmap/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };

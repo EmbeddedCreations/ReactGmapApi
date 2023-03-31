@@ -61,7 +61,6 @@ const SideBar =(props)=>{
             <div>
                 <button className="btn" onClick={handleSubmit}>Enter Record</button>
                 <button className="btn" onClick={()=>window.location.reload(true)}>Clear Route</button>
-                <button className="btn" onClick={()=>window.location.reload(true)}>Delete selected Node</button>
             </div>
             <div>
                 <p className="label">Trip:</p>
