@@ -1,8 +1,4 @@
-import {
-  GoogleMap,
-  Marker,
-  Polyline,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, Polyline } from "@react-google-maps/api";
 // import { Easing, Tween, update } from "@tweenjs/tween.js";
 //importing images,required api to plot the maps and markers
 import Type_A from "../assets/A.png";
@@ -63,11 +59,9 @@ const Map = (props) => {
     lng: 78.04667,
   };
 
-
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
-    
 
     const coordinates = {
       lat: parseFloat(marker.Latitude),
@@ -79,7 +73,7 @@ const Map = (props) => {
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
-      setValues([...values,marker.MarkerID]);
+      setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
       set_trip(trip + marker.MarkerID);
       // console.log(trip);
@@ -88,48 +82,45 @@ const Map = (props) => {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !trip.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
-        setValues([...values,JSON.stringify(marker.MarkerID)]);
+        setValues([...values, marker.MarkerID]);
         // console.log(trip);
         set_trip(trip + "->" + marker.MarkerID);
         // props.getTrip(trip);
-      }if(trip.includes(marker.MarkerID)){
+      }
+      if (trip.includes(marker.MarkerID)) {
         console.log(trip);
         console.log(setCoords);
         console.log(values);
-        console.log(JSON.stringify(marker.MarkerID));
-       console.log(values.findIndex(JSON.stringify(marker.MarkerID)));
-        console.log("adrak")
-        
-        console.log("lasan");
+        console.log(marker.MarkerID);
+        const findElement = "" + marker.MarkerID + "";
+        const index = values.indexOf(findElement);
+        DeleteClick(index);
       }
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     props.getTrip(trip);
-  },[trip])
-  // const handleMarkerDoubleClick = (markerIndex) => {
-  //   console.log(selctedMarker);
-  //   console.log(markerIndex);
-  //   console.log(setCoords);
-  //   // const updatedMarkers = [...selctedMarker];
-  //   const updatedCoords = [...setCoords];
-  //   // console.log(markerIndex);
-  //   // console.log(updatedMarkers);
-  //   // Remove the marker and its coordinates from the arrays
-  //   // updatedMarkers.splice(markerIndex, 1);
-  //   updatedCoords.splice(markerIndex, 1);
+  }, [trip]);
+  const DeleteClick = (markerIndex) => {
+    // const updatedMarkers = [...selctedMarker];
+    const updatedCoords = [...setCoords];
+    console.log(updatedCoords);
+    // console.log(updatedMarkers);
+    // Remove the marker and its coordinates from the arrays
+    // updatedMarkers.splice(markerIndex, 1);
+    updatedCoords.splice(markerIndex, 1);
 
-  //   // Update the state with the new arrays
-  //   // setSelectedMarker(updatedMarkers);
-  //   setSelectedCoords(updatedCoords);
-  //   console.log(updatedCoords);
-  //   console.log("executed sucessfully");
-  // };
+    // Update the state with the new arrays
+    // setSelectedMarker(updatedMarkers);
+    setSelectedCoords(updatedCoords);
+    console.log(updatedCoords);
+    // console.log(updatedMarkers);
+  };
 
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/gmap/markers.php");
+      const res = await fetch("http://localhost/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };
@@ -149,7 +140,6 @@ const Map = (props) => {
     }
   };
 
- 
   //Function to display cummaltative distance on console
   const SendDistance = () => {
     var d = calcute_final_dist();
@@ -175,7 +165,7 @@ const Map = (props) => {
             //Conditional plotting of markers according to legend
             if (checkValue.includes(marker.Marker_Type)) {
               return (
-                <div  key={marker.id}>
+                <div key={marker.id}>
                   <Marker
                     position={{
                       lat: parseFloat(marker.Latitude),
@@ -191,7 +181,7 @@ const Map = (props) => {
                           ? Type_C
                           : "",
                     }}
-                    title={marker.MarkerID}                    
+                    title={marker.MarkerID}
                     onClick={() => handleMarkerClick(marker)}
                   />
                 </div>
@@ -212,7 +202,6 @@ const Map = (props) => {
               strokeWeight={2}
             />
           )}
-          
         </GoogleMap>
         {/* Code For Legend */}
         <div id="legend">
