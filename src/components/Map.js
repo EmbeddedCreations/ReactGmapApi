@@ -20,7 +20,7 @@ const Map = (props) => {
     width: "100%",
   };
   const [showRightMenu, setShowRightMenu] = useState(false);
-	const [postion, setPosition] = useState({ x: 0, y: 0 });
+  const [postion, setPosition] = useState({ x: 0, y: 0 });
 
   const [selctedMarker, setSelectedMarker] = useState([]);
   const [setCoords, setSelectedCoords] = useState([]);
@@ -64,33 +64,33 @@ const Map = (props) => {
     lat: 22.11839,
     lng: 78.04667,
   };
-  const contextMenu = (e) => {
-		e.preventDefault();
-		setPosition({ x: e.pageX, y: e.pageY });
-		setShowRightMenu(true);
-	};
+  // const contextMenu = (e) => {
+  //   e.preventDefault();
+  //   setPosition({ x: e.pageX, y: e.pageY });
+  //   setShowRightMenu(true);
+  // };
 
-	const hideContextMenu = () => {
-		setShowRightMenu(false);
+  const hideContextMenu = () => {
+    setShowRightMenu(false);
     console.log("hide");
-	};
+  };
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
-    scope.addEventListener ("contextmenu", (event) => {
-                            event.preventDefault();
-                            
-                            const { clientX: mouseX, clientY: mouseY } = event;
-                            
-                            contextMenu2.style.top = `${mouseY}px`;
-                            contextMenu2.style.left = `${mouseX}px`;
-                            contextMenu2.classList.add("visible");
-                        });
-                        scope.addEventListener("click",(e) => {
-                            if(e.target.offsetParent != contextMenu2){
-                                contextMenu2.classList.remove("visible");
-                            }
-                        });
+    scope.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+
+      const { clientX: mouseX, clientY: mouseY } = event;
+
+      contextMenu2.style.top = `${mouseY}px`;
+      contextMenu2.style.left = `${mouseX}px`;
+      contextMenu2.classList.add("visible");
+    });
+    scope.addEventListener("click", (e) => {
+      if (e.target.offsetParent != contextMenu2) {
+        contextMenu2.classList.remove("visible");
+      }
+    });
 
     const coordinates = {
       lat: parseFloat(marker.Latitude),
@@ -117,29 +117,29 @@ const Map = (props) => {
       }
     }
   };
-  const handleMarkerDoubleClick = (markerIndex) => {
-    // console.log(selctedMarker);
-    // console.log(markerIndex);
-    console.log(setCoords);
-    // const updatedMarkers = [...selctedMarker];
-    const updatedCoords = [...setCoords];
-    // console.log(markerIndex);
-    // console.log(updatedMarkers);
-    // Remove the marker and its coordinates from the arrays
-    // updatedMarkers.splice(markerIndex, 1);
-    updatedCoords.splice(markerIndex, 1);
+  // const handleMarkerDoubleClick = (markerIndex) => {
+  //   // console.log(selctedMarker);
+  //   // console.log(markerIndex);
+  //   console.log(setCoords);
+  //   // const updatedMarkers = [...selctedMarker];
+  //   const updatedCoords = [...setCoords];
+  //   // console.log(markerIndex);
+  //   // console.log(updatedMarkers);
+  //   // Remove the marker and its coordinates from the arrays
+  //   // updatedMarkers.splice(markerIndex, 1);
+  //   updatedCoords.splice(markerIndex, 1);
 
-    // Update the state with the new arrays
-    // setSelectedMarker(updatedMarkers);
-    setSelectedCoords(updatedCoords);
-    console.log(updatedCoords);
-    console.log("executed sucessfully");
-  };
+  //   // Update the state with the new arrays
+  //   // setSelectedMarker(updatedMarkers);
+  //   setSelectedCoords(updatedCoords);
+  //   console.log(updatedCoords);
+  //   console.log("executed sucessfully");
+  // };
 
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/gmap/markers.php");
+      const res = await fetch("http://localhost/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };
@@ -158,7 +158,7 @@ const Map = (props) => {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
   };
-  const contextMenu2 = document. getElementById( "context-menu");
+  const contextMenu2 = document.getElementById("context-menu");
   const scope = document.querySelector(".App");
   const handleTrip = () => {
     if (props.Clear == 1) {
@@ -190,8 +190,8 @@ const Map = (props) => {
             //Conditional plotting of markers according to legend
             if (checkValue.includes(marker.Marker_Type)) {
               return (
-                <div key={marker.id}  onContextMenu={contextMenu}>
-                  <Marker 
+                <div  key={marker.id}>
+                  <Marker
                     position={{
                       lat: parseFloat(marker.Latitude),
                       lng: parseFloat(marker.Longitude),
@@ -207,26 +207,18 @@ const Map = (props) => {
                           : "",
                     }}
                     title={marker.MarkerID}
-                 onrightlClick={() => console.log("Right Click")}
-                    onClick={() =>{handleMarkerClick(marker);hideContextMenu()
-                        
-                    }    
-                     
-                    }
-                    
-                    // onClick={hideContextMenu}
-                   />
+                    onDblClick={() => hideContextMenu()}
+                    onClick={() => handleMarkerClick(marker)}
+                  />
                 </div>
               );
             }
-            
-            
-            
+
             if (props.Clear == 1) {
               props.getTrip("");
             }
           })}
-          
+
           {/* Code to Deploy Polyline */}
           {selctedMarker && (
             <Polyline
@@ -237,11 +229,10 @@ const Map = (props) => {
             />
           )}
           {showRightMenu ? <ContextMenus postion={postion} /> : ""}
-          
         </GoogleMap>
         {/* Code For Legend */}
         <div id="context-menu">
-            <div className="item">Delete</div> 
+          <div className="item">Delete</div>
         </div>
         <div id="legend">
           <h4>Map Legends</h4>
@@ -294,10 +285,7 @@ const Map = (props) => {
             <button onClick={SendDistance}>Calculate Distance</button>
           </div>
         </div>
-
-       
       </div>
-      
     )
   );
 };
