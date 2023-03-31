@@ -13,9 +13,6 @@ const Map = (props) => {
     height: "100vh",
     width: "100%",
   };
-  const [showRightMenu, setShowRightMenu] = useState(false);
-  const [postion, setPosition] = useState({ x: 0, y: 0 });
-
   const [selctedMarker, setSelectedMarker] = useState([]);
   const [setCoords, setSelectedCoords] = useState([]);
   const [m_type, setM_type] = useState(null);
@@ -88,13 +85,22 @@ const Map = (props) => {
         // props.getTrip(trip);
       }
       if (trip.includes(marker.MarkerID)) {
-        console.log(trip);
-        console.log(setCoords);
-        console.log(values);
-        console.log(marker.MarkerID);
-        const findElement = "" + marker.MarkerID + "";
+        const result = window.confirm("Are you sure you want to delete this item?");
+        if (result === true) {
+          // User clicked "OK" or "Yes"
+          const findElement = "" + marker.MarkerID + "";
         const index = values.indexOf(findElement);
         DeleteClick(index);
+          console.log("Item deleted.");
+        } else {
+          // User clicked "Cancel" or "No"
+          console.log("Deletion cancelled.");
+        }
+        // console.log(trip);
+        // console.log(setCoords);
+        // console.log(values);
+        // console.log(marker.MarkerID);
+       
       }
     }
   };
@@ -105,7 +111,7 @@ const Map = (props) => {
     // const updatedMarkers = [...selctedMarker];
     const updatedCoords = [...setCoords];
     console.log(updatedCoords);
-    // console.log(updatedMarkers);
+    console.log(selctedMarker);
     // Remove the marker and its coordinates from the arrays
     // updatedMarkers.splice(markerIndex, 1);
     updatedCoords.splice(markerIndex, 1);
