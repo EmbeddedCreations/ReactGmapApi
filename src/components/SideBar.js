@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { slide as Menu } from 'react-burger-menu';
 import "./SideBar.css"
+import nmc from "../assets/nmc.jpg";
 import axios from "axios";
 const SideBar =(props)=>{
     
@@ -52,6 +53,10 @@ const SideBar =(props)=>{
     return(
         // <Menu>
         <div className="sidebar">
+        <div style={{display:"flex"}}>
+        <div><img className="logo" src={nmc}/></div>
+<div><h2>Nagpur Municipal Corporation</h2></div>
+        </div>
             <h1 className="heading">Route Details</h1>
             <div>
                 <p className="label">Name:</p>
