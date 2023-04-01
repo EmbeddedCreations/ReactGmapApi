@@ -116,7 +116,7 @@ const Map = (props) => {
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/markers.php");
+      const res = await fetch("http://localhost/gmap/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };

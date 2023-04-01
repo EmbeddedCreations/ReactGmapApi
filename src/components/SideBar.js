@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { slide as Menu } from 'react-burger-menu';
+
 import "./SideBar.css"
 import nmc from "../assets/nmc.jpg";
 import axios from "axios";
@@ -9,7 +9,7 @@ const SideBar =(props)=>{
     const trip = props.trip;
     const dist = props.dist;
     var rpk=dist*15;
-    var rpk1=rpk.toFixed(2);
+    const rpk1=rpk.toFixed(2);
     const [date,setDate] = useState('');
     const [name,setName] = useState('');
     // const[posts,setposts] = useState([]);
@@ -26,17 +26,18 @@ const SideBar =(props)=>{
         }else{
              
             const t_dist = parseFloat(dist);
-            
+            const t_amt = parseFloat(rpk1);
             let tripData = new FormData();
             tripData.append('Trip_date',date);
             tripData.append('Name',name);
             tripData.append('Trip',trip);
             tripData.append('Marker_type',trip[0]);
             tripData.append('Total_dist',t_dist);
+            tripData.append('Total_Amount',t_amt);
 
             axios({
                 method:'post',
-                url : 'http://localhost/markers.php',
+                url : 'http://localhost/gmap/markers.php',
                 data: tripData,
                 config:{headers : {'Content-Type':'multipart/form-data'}}
 
