@@ -1,5 +1,4 @@
 import { GoogleMap, Marker, Polyline } from "@react-google-maps/api";
-// import { Easing, Tween, update } from "@tweenjs/tween.js";
 //importing images,required api to plot the maps and markers
 import Type_A from "../assets/A.png";
 import Type_B from "../assets/B.png";
@@ -17,7 +16,7 @@ const Map = (props) => {
   const [setCoords, setSelectedCoords] = useState([]);
   const [m_type, setM_type] = useState(null);
   const [values, setValues] = useState([]);
-  const [trip, set_trip] = useState("");
+  // const [trip, set_trip] = useState("");
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
   //Function To calculate Distance between two markers
@@ -72,26 +71,28 @@ const Map = (props) => {
       setSelectedCoords([...setCoords, coordinates]);
       setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
-      set_trip(trip + marker.MarkerID);
+      // set_trip(trip + marker.MarkerID);
       // console.log(trip);
       // props.getTrip(trip);
     } else {
       console.log(marker.Marker_Type);
-      if (m_type == marker.Marker_Type && !trip.includes(marker.MarkerID)) {
+      if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
         setValues([...values, marker.MarkerID]);
         // console.log(trip);
-        set_trip(trip + "->" + marker.MarkerID);
+        // set_trip(trip + marker.MarkerID);
         // props.getTrip(trip);
       }
-      if (trip.includes(marker.MarkerID)) {
+      if (values.includes(marker.MarkerID)) {
         const result = window.confirm("Are you sure you want to delete this item?");
+        console.log(values);
         if (result === true) {
           // User clicked "OK" or "Yes"
           const findElement = "" + marker.MarkerID + "";
         const index = values.indexOf(findElement);
         DeleteClick(index);
           console.log("Item deleted.");
+          console.log(values);
         } else {
           // User clicked "Cancel" or "No"
           console.log("Deletion cancelled.");
@@ -105,22 +106,21 @@ const Map = (props) => {
     }
   };
   useEffect(() => {
-    props.getTrip(trip);
-  }, [trip]);
+    props.getTrip(values);
+  }, [values]);
   const DeleteClick = (markerIndex) => {
-    // const updatedMarkers = [...selctedMarker];
+    const updatedValues= [...values];
     const updatedCoords = [...setCoords];
-    console.log(updatedCoords);
-    console.log(selctedMarker);
+    console.log(updatedValues);
     // Remove the marker and its coordinates from the arrays
-    // updatedMarkers.splice(markerIndex, 1);
+    updatedValues.splice(markerIndex, 1);
+
     updatedCoords.splice(markerIndex, 1);
 
     // Update the state with the new arrays
-    // setSelectedMarker(updatedMarkers);
+    setValues(updatedValues);
     setSelectedCoords(updatedCoords);
-    console.log(updatedCoords);
-    // console.log(updatedMarkers);
+    console.log(updatedValues);
   };
 
   //Fetching of Data from localHost From mysql
