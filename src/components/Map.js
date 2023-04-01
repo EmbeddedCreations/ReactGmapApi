@@ -63,25 +63,17 @@ const Map = (props) => {
       lat: parseFloat(marker.Latitude),
       lng: parseFloat(marker.Longitude),
     };
-    // console.log(setCoords.length);
-    // console.log(m_type);
 
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
       setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
-      // set_trip(trip + marker.MarkerID);
-      // console.log(trip);
-      // props.getTrip(trip);
     } else {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
         setValues([...values, marker.MarkerID]);
-        // console.log(trip);
-        // set_trip(trip + marker.MarkerID);
-        // props.getTrip(trip);
       }
       if (values.includes(marker.MarkerID)) {
         const result = window.confirm("Are you sure you want to delete this item?");
@@ -97,17 +89,14 @@ const Map = (props) => {
           // User clicked "Cancel" or "No"
           console.log("Deletion cancelled.");
         }
-        // console.log(trip);
-        // console.log(setCoords);
-        // console.log(values);
-        // console.log(marker.MarkerID);
-       
       }
     }
   };
   useEffect(() => {
     var arrString = values.join("->");
     props.getTrip(arrString);
+    SendDistance();
+    
   }, [values]);
   const DeleteClick = (markerIndex) => {
     const updatedValues= [...values];
@@ -127,7 +116,7 @@ const Map = (props) => {
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("http://localhost/gmap/markers.php");
+      const res = await fetch("http://localhost/markers.php");
       const getData = await res.json();
       setMarker(getData);
     };
@@ -138,8 +127,6 @@ const Map = (props) => {
   const handleChange = (e) => {
     const value = e.target.value;
     const checked = e.target.checked;
-    //console.log(value, checked);
-
     if (checked) {
       setCheckValue([...checkValue, value]);
     } else {
@@ -164,7 +151,6 @@ const Map = (props) => {
           center={center}
           zoom={18}
           mapOptions
-          // mapId={'11591122c5fe6d88'}
         >
           {}
 
@@ -257,9 +243,6 @@ const Map = (props) => {
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <div>
-            <button onClick={SendDistance}>Calculate Distance</button>
           </div>
         </div>
       </div>

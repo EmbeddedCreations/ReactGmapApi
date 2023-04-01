@@ -1,11 +1,14 @@
 import React, { useState } from "react"
+import { slide as Menu } from 'react-burger-menu';
 import "./SideBar.css"
 import axios from "axios";
 const SideBar =(props)=>{
+    
     // const url = "";
     const trip = props.trip;
     const dist = props.dist;
-    
+    var rpk=dist*15;
+    var rpk1=rpk.toFixed(2);
     const [date,setDate] = useState('');
     const [name,setName] = useState('');
     // const[posts,setposts] = useState([]);
@@ -32,7 +35,7 @@ const SideBar =(props)=>{
 
             axios({
                 method:'post',
-                url : 'http://localhost/gmap/markers.php',
+                url : 'http://localhost/markers.php',
                 data: tripData,
                 config:{headers : {'Content-Type':'multipart/form-data'}}
 
@@ -47,8 +50,9 @@ const SideBar =(props)=>{
 
     
     return(
+        // <Menu>
         <div className="sidebar">
-            <h1 className="heading">Gmap</h1>
+            <h1 className="heading">Route Details</h1>
             <div>
                 <p className="label">Name:</p>
                 <input className ="input"type="text"   onChange={(e)=>setName(e.target.value)}></input>
@@ -67,11 +71,15 @@ const SideBar =(props)=>{
                 <p className="label">{props.trip}</p>
             </div>
             <div>
-                <p className="label">Dist:</p>
-                <p className="label">{props.dist}{(props.dist > 0)?"Km":""}</p>
+                <p className="label">Dist: {props.dist}{(props.dist > 0)? " Km":""}</p>
+            </div>
+            <div>
+                <p className="label">Generated Amount: {rpk1}{(props.dist > 0)? " Rs":""}</p>
             </div>
         </div>
+        // </Menu>
     )
+    
 }
 
 
