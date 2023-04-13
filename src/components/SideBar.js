@@ -73,14 +73,14 @@ const SideBar =(props)=>{
                 <button className="btn" onClick={()=>window.location.reload(true)}>Clear Route</button>
             </div>
             <div>
-                <p className="label">Trip:</p>
+                <p className="label">Path:</p>
                 <p className="label">{props.trip}</p>
             </div>
             <div>
                 <p className="label">Dist: {props.dist}{(props.dist > 0)? " Km":""}</p>
             </div>
             <div>
-                <p className="label">Generated Amount: {rpk1}{(props.dist > 0)? " Rs":""}</p>
+                {/* <p className="label">Generated Amount: {rpk1}{(props.dist > 0)? " Rs":""}</p> */}
             </div>
         </div>
         // </Menu>

@@ -1,9 +1,20 @@
-import { GoogleMap, Marker, Polyline } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  Polyline,
+  TrafficLayer,
+  HeatmapLayer,
+  TransitLayer,
+  BicyclingLayer,
+  KmlLayer,
+  StreetViewPanorama,
+} from "@react-google-maps/api";
 //importing images,required api to plot the maps and markers
 import Type_A from "../assets/A.png";
 import Type_B from "../assets/B.png";
 import Type_C from "../assets/C.png";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+
 import "./Map.css";
 
 const Map = (props) => {
@@ -12,11 +23,16 @@ const Map = (props) => {
     height: "100vh",
     width: "100%",
   };
-  const [selctedMarker, setSelectedMarker] = useState([]);
+  const [coordinates, setCoordinates] = useState(null);
+  const [panorama, setPanorama] = useState(null);
+  const handlePanoramaLoad = (panorama) => {
+    setPanorama(panorama);
+  };
+  // const [selectedLayer, setSelectedLayer] = useState('traffic');
+  const [selctedMarker, setSelectedMarker] = useState();
   const [setCoords, setSelectedCoords] = useState([]);
   const [m_type, setM_type] = useState(null);
   const [values, setValues] = useState([]);
-  // const [trip, set_trip] = useState("");
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
   //Function To calculate Distance between two markers
@@ -49,40 +65,47 @@ const Map = (props) => {
     }
     return dist.toFixed(2);
   };
+  // const center = selctedMarker ? selctedMarker.getPosition() : {lat: 21.112709045410156, lng: 79.06546783447266};
 
   const center = {
-    lat: 22.11839,
-    lng: 78.04667,
+    lat: 21.112709045410156,
+    lng: 79.06546783447266,
   };
-
+    // const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
+    setPanorama(null); // reset panorama when a marker is clicked
 
     const coordinates = {
       lat: parseFloat(marker.Latitude),
       lng: parseFloat(marker.Longitude),
     };
-
+    setCoordinates(coordinates);
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
       setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
+      console.log(coordinates);
     } else {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
+        console.log(coordinates);
+        // setCenter([...center,coordinates]);
         setValues([...values, marker.MarkerID]);
       }
       if (values.includes(marker.MarkerID)) {
-        const result = window.confirm("Are you sure you want to delete this item?");
+        const result = window.confirm(
+          "Are you sure you want to delete this item?"
+        );
         console.log(values);
         if (result === true) {
           // User clicked "OK" or "Yes"
           const findElement = "" + marker.MarkerID + "";
-        const index = values.indexOf(findElement);
-        DeleteClick(index);
+          const index = values.indexOf(findElement);
+          DeleteClick(index);
           console.log("Item deleted.");
           console.log(values);
         } else {
@@ -96,12 +119,12 @@ const Map = (props) => {
     var arrString = values.join("->");
     props.getTrip(arrString);
     SendDistance();
-    
   }, [values]);
   const DeleteClick = (markerIndex) => {
-    const updatedValues= [...values];
+    const updatedValues = [...values];
     const updatedCoords = [...setCoords];
     console.log(updatedValues);
+    console.log(setCoords);
     // Remove the marker and its coordinates from the arrays
     updatedValues.splice(markerIndex, 1);
 
@@ -116,7 +139,9 @@ const Map = (props) => {
   //Fetching of Data from localHost From mysql
   useEffect(() => {
     const getMarker = async () => {
-      const res = await fetch("https://embeddedcreation.in/deeGIS/backend/markers.php");
+      const res = await fetch(
+        "https://embeddedcreation.in/deeGIS/backend/markers.php"
+      );
       const getData = await res.json();
       setMarker(getData);
     };
@@ -133,7 +158,22 @@ const Map = (props) => {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
   };
-
+  // const renderLayer = () => {
+  //   switch (selectedLayer) {
+  //     case 'traffic':
+  //       return <TrafficLayer />;
+  //     case 'transit':
+  //       return <TransitLayer />;
+  //     case 'bicycle':
+  //       return <BicyclingLayer/>;
+  //     case 'kml':
+  //       return <KmlLayer/>;
+  //     case 'heatmap':
+  //       return <HeatmapLayer/>
+  //     default:
+  //       return null;
+  //   }
+  // };
   //Function to display cummaltative distance on console
   const SendDistance = () => {
     var d = calcute_final_dist();
@@ -149,7 +189,7 @@ const Map = (props) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={18}
+          zoom={13}
           mapOptions
         >
           {}
@@ -174,7 +214,7 @@ const Map = (props) => {
                           ? Type_C
                           : "",
                     }}
-                    title={marker.MarkerID}
+                    title={marker.MarkerID +"\rAgency Name: ABC\r"+" Category: YYY\r"+" Height:XX mtr\r"+" Length:XX mtr\r"+" Breadth:XX mtrs"}
                     onClick={() => handleMarkerClick(marker)}
                   />
                 </div>
@@ -193,11 +233,38 @@ const Map = (props) => {
               strokeColor="#0000FF"
               strokeOpacity={0.8}
               strokeWeight={2}
+              animateMarker
+            />
+          )}
+          {/* <TrafficLayer/> */}
+          {/* <BicyclingLayer/> */}
+          {/* <HeatmapLayer data={setCoords} /> */}
+          {/* <KmlLayer/> */}
+          {/* <TransitLayer/> */}
+          {/* <StreetViewPanorama
+            position={center}
+      
+          /> */}
+          {/* {renderLayer()} */}
+          {selctedMarker && (
+            <StreetViewPanorama
+              position={coordinates}
+              // position={{ lat: 21.12079167, lng: 79.02505556}}
+              visible={panorama !== null}
+              onLoad={handlePanoramaLoad}
             />
           )}
         </GoogleMap>
         {/* Code For Legend */}
         <div id="legend">
+          {/* <label htmlFor="layer-select">Select a layer:</label>
+      <select id="layer-select" value={selectedLayer} onChange={handleChange}>
+        <option value="traffic">Traffic</option>
+        <option value="transit">Transit</option>
+        <option value="heatmap">Heatmap</option>
+        <option value="bicycle">Bicycling</option>
+        <option value="kml">Kml</option>
+      </select> */}
           <h4>Map Legends</h4>
           <div className="style">
             <div className="para">Type A</div>
@@ -244,6 +311,7 @@ const Map = (props) => {
               />
             </div>
           </div>
+          
         </div>
       </div>
     )
