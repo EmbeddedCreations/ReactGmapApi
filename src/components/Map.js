@@ -35,6 +35,7 @@ const Map = (props) => {
   const [values, setValues] = useState([]);
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
+  const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
   //Function To calculate Distance between two markers
   function haversine_distance(mk1, mk2) {
     var R = 3958.8; // Radius of the Earth in miles
@@ -67,11 +68,12 @@ const Map = (props) => {
   };
   // const center = selctedMarker ? selctedMarker.getPosition() : {lat: 21.112709045410156, lng: 79.06546783447266};
 
-  const center = {
-    lat: 21.112709045410156,
-    lng: 79.06546783447266,
-  };
-    // const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
+  // const center = {
+  //   lat: 21.112709045410156,
+  //   lng: 79.06546783447266,
+  // };
+  
+  
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
@@ -82,6 +84,7 @@ const Map = (props) => {
       lng: parseFloat(marker.Longitude),
     };
     setCoordinates(coordinates);
+    setCenter(coordinates);
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
@@ -92,7 +95,6 @@ const Map = (props) => {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
-        console.log(coordinates);
         // setCenter([...center,coordinates]);
         setValues([...values, marker.MarkerID]);
       }
@@ -181,7 +183,7 @@ const Map = (props) => {
     props.getDist(d);
   };
   const google = window.google;
-
+  const zoom = 13;
   //Loading of Google Map
   return (
     isLoaded && (
@@ -189,7 +191,7 @@ const Map = (props) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={13}
+          zoom = {zoom}
           mapOptions
         >
           {}

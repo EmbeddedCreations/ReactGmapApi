@@ -3,7 +3,7 @@
     height: 100%;
     margin-top: 0%;
     padding: 10px;
-    margin-left: 10px;
+    margin-left: 2px;
     
 }
 .heading{
@@ -19,8 +19,8 @@
     text-align: center;
 }
 .input{
-    width: 200px;
-    height: 20px;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     margin: 0px;
     font-size: 20px;
@@ -78,6 +78,13 @@
   }
 .logo{
     margin-top: 25px;
-    height: 80px !important;
-    width: 80px !important;
+    height: 70px !important;
+    width: 70px !important;
+    align-self: center;
+}
+.nmc{
+    font-size: 22px;
+    font-weight: bold;
+    align-self: center;
+    margin-top: 12px;
 }

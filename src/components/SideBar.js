@@ -56,7 +56,7 @@ const SideBar =(props)=>{
         <div className="sidebar">
         <div style={{display:"flex"}}>
         <div><img className="logo" src={nmc}/></div>
-<div><h2>Nagpur Municipal Corporation</h2></div>
+        <div className="nmc">Nagpur Municipal Corporation </div>
         </div>
             <h1 className="heading">Route Details</h1>
             <div>
