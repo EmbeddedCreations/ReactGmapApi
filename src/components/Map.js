@@ -36,7 +36,30 @@ const Map = (props) => {
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
   const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
+  const [selectedOption, setSelectedOption] = useState('Select');
+  const [allOptions,setAllOptions] = useState(['Select Path']);
+
+  const handleOptionSelect = (event) => {
+    const option = event.target.value
+    setSelectedOption(option);
+    
+    
+  };
+  useEffect(()=>{
+    if(checkValue.includes("A")){
+      if(selectedOption == 'Path1'){
+        setSelectedCoords(path1);
+        setValues(c_name1);
+      }if(selectedOption == 'Path2'){
+        setSelectedCoords(path2);
+        setValues(c_name2);
+      }if(selectedOption == 'Select path'){
+        setSelectedCoords([]);
+      }
+    }
+  },[selectedOption]);
   
+
   //Function To calculate Distance between two markers
   function haversine_distance(mk1, mk2) {
     var R = 3958.8; // Radius of the Earth in miles
@@ -76,17 +99,17 @@ const Map = (props) => {
       lat: parseFloat(marker.Latitude),
       lng: parseFloat(marker.Longitude),
     };
+
     setCoordinates(coordinates);
     setCenter(coordinates);
-    
+
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
       setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
-      console.log(coordinates);
     } else {
-      console.log(marker.Marker_Type);
+    
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
         setValues([...values, marker.MarkerID]);
@@ -95,18 +118,14 @@ const Map = (props) => {
         const result = window.confirm(
           "Are you sure you want to delete this item?"
         );
-        console.log(values);
         if (result === true) {
           // User clicked "OK" or "Yes"
           const findElement = "" + marker.MarkerID + "";
           const index = values.indexOf(findElement);
           DeleteClick(index);
-          console.log("Item deleted.");
-          console.log(values);
-        } else {
-          // User clicked "Cancel" or "No"
-          console.log("Deletion cancelled.");
-        }
+
+        } 
+       
       }
     }
   };
@@ -118,8 +137,7 @@ const Map = (props) => {
   const DeleteClick = (markerIndex) => {
     const updatedValues = [...values];
     const updatedCoords = [...setCoords];
-    console.log(updatedValues);
-    console.log(setCoords);
+
     // Remove the marker and its coordinates from the arrays
     updatedValues.splice(markerIndex, 1);
 
@@ -128,7 +146,7 @@ const Map = (props) => {
     // Update the state with the new arrays
     setValues(updatedValues);
     setSelectedCoords(updatedCoords);
-    console.log(updatedValues);
+
   };
 
   //Fetching of Data from localHost From mysql
@@ -152,7 +170,15 @@ const Map = (props) => {
     } else {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
+    if(value== 'A' && checked){
+      setAllOptions(['Select path','Path1','Path2']);
+    }
   };
+  useEffect(()=>{
+    if(!checkValue.includes(m_type)){
+      setSelectedCoords([]);
+    }
+  },[checkValue])
   // const renderLayer = () => {
   //   switch (selectedLayer) {
   //     case 'traffic':
@@ -169,10 +195,15 @@ const Map = (props) => {
   //       return null;
   //   }
   // };
+  // temporary array of path coordinates:- 
+  const path1 = [{lat: 21.12079167, lng: 79.02505556},{lat: 21.1181, lng: 79.0344},{lat: 21.11339722, lng: 79.04549167},{lat: 21.11255556, lng: 79.05127778}];
+  const path2 = [{lat: 21.07228611, lng: 79.06043889},{lat: 21.088025, lng: 79.06440278},{lat: 21.097642, lng: 79.070317},{lat: 21.097819, lng: 79.066972}];
+  //temprorary array of points in path;-
+  const c_name1 =["A48","A111","A75","A60"];
+  const c_name2 =["A96","A93","A159","A144"];
   //Function to display cummaltative distance on console
   const SendDistance = () => {
     var d = calcute_final_dist();
-    console.log("distance: - ", d);
     props.getDist(d);
   };
   const google = window.google;
@@ -202,7 +233,7 @@ const Map = (props) => {
                     options={{
                       icon:
                         marker.Marker_Type == "A"
-                          ? Type_A
+                          ? Type_A 
                           : marker.Marker_Type == "B"
                           ? Type_B
                           : marker.Marker_Type == "C"
@@ -215,14 +246,14 @@ const Map = (props) => {
                 </div>
               );
             }
-
+            
             if (props.Clear == 1) {
               props.getTrip("");
             }
           })}
 
           {/* Code to Deploy Polyline */}
-          {selctedMarker && (
+          {(selctedMarker || selectedOption != 'Select Path') && (
             <Polyline
             path={setCoords}
             strokeColor="black"
@@ -231,15 +262,6 @@ const Map = (props) => {
             animateMarker
           />
           )}
-          {/* {selectedOptionData && (
-        <Polyline
-          path={selectedOptionData.path}
-          strokeColor={selectedOptionData.color}
-          strokeOpacity={0.8}
-          strokeWeight={2}
-          animateMarker
-        />
-      )} */}
           {/* <TrafficLayer/> */}
           {/* <BicyclingLayer/> */}
           {/* <HeatmapLayer data={setCoords} /> */}
@@ -315,6 +337,13 @@ const Map = (props) => {
               />
             </div>
           </div>
+          <select onChange={handleOptionSelect} >
+            {allOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     )
