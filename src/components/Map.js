@@ -36,6 +36,36 @@ const Map = (props) => {
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
   const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
+  const coordinates1 = [
+    { lat: 40.7128, lng: -74.006 },
+    { lat: 41.8781, lng: -87.6298 },
+    { lat: 34.0522, lng: -118.2437 },
+    { lat: 39.9526, lng: -75.1652 },
+    { lat: 29.7604, lng: -95.3698 },
+    { lat: 32.7157, lng: -117.1611 },
+  ];
+  
+  const coordinates2 = [
+    { lat: 51.5074, lng: -0.1278 },
+    { lat: 48.8566, lng: 2.3522 },
+    { lat: 40.4168, lng: -3.7038 },
+    { lat: 41.3851, lng: 2.1734 },
+    { lat: 52.5200, lng: 13.4050 },
+    { lat: 55.7558, lng: 37.6173 },
+  ];
+  const [selectedOption, setSelectedOption] = useState("option1");
+
+  const options = [
+    { value: "option1", label: "Option 1", color: "#0000FF", path: setCoords },
+    { value: "option2", label: "Option 2", color: "#FF0000", path: coordinates1 },
+    { value: "option3", label: "Option 3", color: "#00FF00", path: coordinates2 },
+  ];
+
+  const handleDropdownChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const selectedOptionData = options.find((option) => option.value === selectedOption);
   //Function To calculate Distance between two markers
   function haversine_distance(mk1, mk2) {
     var R = 3958.8; // Radius of the Earth in miles
@@ -66,14 +96,6 @@ const Map = (props) => {
     }
     return dist.toFixed(2);
   };
-  // const center = selctedMarker ? selctedMarker.getPosition() : {lat: 21.112709045410156, lng: 79.06546783447266};
-
-  // const center = {
-  //   lat: 21.112709045410156,
-  //   lng: 79.06546783447266,
-  // };
-  
-  
   const handleMarkerClick = (marker) => {
     //Code to detect if marker is clicked and then add it to the array setCoords to plot the line between two markers
     setSelectedMarker(marker);
@@ -85,6 +107,7 @@ const Map = (props) => {
     };
     setCoordinates(coordinates);
     setCenter(coordinates);
+    
     //pushing cordinates/markers selected into an array(setCoords)
     if (setCoords.length < 1) {
       setSelectedCoords([...setCoords, coordinates]);
@@ -95,7 +118,6 @@ const Map = (props) => {
       console.log(marker.Marker_Type);
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
-        // setCenter([...center,coordinates]);
         setValues([...values, marker.MarkerID]);
       }
       if (values.includes(marker.MarkerID)) {
@@ -231,13 +253,22 @@ const Map = (props) => {
           {/* Code to Deploy Polyline */}
           {selctedMarker && (
             <Polyline
-              path={setCoords}
-              strokeColor="#0000FF"
-              strokeOpacity={0.8}
-              strokeWeight={2}
-              animateMarker
-            />
+  path={setCoords}
+  strokeColor="black"
+  strokeOpacity={0.8}
+  strokeWeight={2}
+  animateMarker
+/>
           )}
+          {/* {selectedOptionData && (
+        <Polyline
+          path={selectedOptionData.path}
+          strokeColor={selectedOptionData.color}
+          strokeOpacity={0.8}
+          strokeWeight={2}
+          animateMarker
+        />
+      )} */}
           {/* <TrafficLayer/> */}
           {/* <BicyclingLayer/> */}
           {/* <HeatmapLayer data={setCoords} /> */}
@@ -248,14 +279,14 @@ const Map = (props) => {
       
           /> */}
           {/* {renderLayer()} */}
-          {selctedMarker && (
+          {/* {selctedMarker && (
             <StreetViewPanorama
-              position={coordinates}
+              // position={coordinates}
               // position={{ lat: 21.12079167, lng: 79.02505556}}
               visible={panorama !== null}
               onLoad={handlePanoramaLoad}
             />
-          )}
+          )} */}
         </GoogleMap>
         {/* Code For Legend */}
         <div id="legend">
@@ -313,7 +344,13 @@ const Map = (props) => {
               />
             </div>
           </div>
-          
+          <select value={selectedOption} onChange={handleDropdownChange}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
         </div>
       </div>
     )
