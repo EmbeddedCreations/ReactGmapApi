@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import {Link} from "react-router-dom";
-
 import "./SideBar.css"
 import smartCity from "../assets/smart-city-nagpur-logo.png";
 import axios from "axios";
@@ -18,7 +17,7 @@ const SideBar =(props)=>{
     
     // const[posts,setposts] = useState([]);
 
-    
+
   const handleSubmit = () => {
     if (name.length === 0) {
       alert("Name Has Left Blank!");
@@ -116,5 +115,4 @@ const SideBar =(props)=>{
 };
 
 
-
-export default SideBar
+export default SideBar;

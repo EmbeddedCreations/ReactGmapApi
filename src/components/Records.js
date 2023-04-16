@@ -37,7 +37,6 @@ function Records() {
       <table>
         <thead>
           <tr>
-            {console.log(data)}
             {columns.map((column) => (
               <th key={column.field}>{column.title}</th>
             ))}
