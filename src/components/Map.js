@@ -176,8 +176,14 @@ const Map = (props) => {
       setAllOptions(['Select path','Path1','Path2']);
     }
   };
+<<<<<<< Updated upstream
   useEffect(()=>{
     if(!checkValue.includes(m_type)){
+=======
+  useEffect(() => {
+    if (!checkValue.includes(m_type)) {
+      setValues([]);
+>>>>>>> Stashed changes
       setSelectedCoords([]);
     }
   },[checkValue])
