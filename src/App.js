@@ -1,9 +1,12 @@
 import { useJsApiLoader } from "@react-google-maps/api";
-import Map from "./components/Map";
 import { mapOptions } from "./components/MapConfiguration";
-import SideBar from "./components/SideBar";
+import Records from "./components/Records"
 import "./App.css";
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SideBar from "./components/SideBar";
+import Map from "./components/Map";
+
 function App() {
   const { isLoaded } = useJsApiLoader({
     id: mapOptions.googleMapApiKey,
@@ -23,21 +26,26 @@ function App() {
   }
   return (
     <div className="App">
-      <SideBar
-        className="sidebar"
-        trip={trip}
-        setClear={setClear}
-        dist={dist}
-      />
-      {/* Loading of map Main code in map.js */}
-
-      <Map
-        className="map"
-        isLoaded={isLoaded}
-        getTrip={getTrip}
-        Clear={clear}
-        getDist={getDist}
-      />
+        <Routes>
+        <Route path="/" element={
+            <>
+              <SideBar
+                className="sidebar"
+                trip={trip}
+                setClear={setClear}
+                dist={dist}
+              />
+              <Map
+                className="map"
+                isLoaded={isLoaded}
+                getTrip={getTrip}
+                Clear={clear}
+                getDist={getDist}
+              />
+            </>
+          } />
+          <Route path="/Records" exact element={<Records />} />
+        </Routes>
     </div>
   );
 }

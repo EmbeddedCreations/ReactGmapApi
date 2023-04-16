@@ -18,11 +18,13 @@ const Map = (props) => {
     height: "100vh",
     width: "100%",
   };
+  
   const [coordinates, setCoordinates] = useState(null);
   const [panorama, setPanorama] = useState(null);
   const handlePanoramaLoad = (panorama) => {
     setPanorama(panorama);
   };
+
   // const [selectedLayer, setSelectedLayer] = useState('traffic');
   const [selctedMarker, setSelectedMarker] = useState();
   const [setCoords, setSelectedCoords] = useState([]);
@@ -171,8 +173,11 @@ const Map = (props) => {
       ]);
     }
   };
+
+
   useEffect(() => {
     if (!checkValue.includes(m_type)) {
+      setValues([]);
       setSelectedCoords([]);
     }
   }, [checkValue]);

@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {Link} from "react-router-dom";
-import "./SideBar.css";
-import nmc from "../assets/nmc.jpg";
-import logo from "../assets/smart-city-nagpur-logo.png";
+import "./SideBar.css"
+import smartCity from "../assets/smart-city-nagpur-logo.png";
 import axios from "axios";
-const SideBar = (props) => {
-  // const url = "";
-  const trip = props.trip;
-  const dist = props.dist;
-  var rpk = dist * 15;
-  const rpk1 = rpk.toFixed(2);
-  const today = new Date().toISOString().substr(0, 10);
-  const [date, setDate] = useState(today);
+const SideBar =(props)=>{
+    
+    // const url = "";
+    const trip = props.trip;
+    const dist = props.dist;
+    var rpk=dist*15;
+    const rpk1=rpk.toFixed(2);
+    const today = new Date().toISOString().substr(0, 10);
+    const [date, setDate] = useState(today);
+    const [name,setName] = useState('');
+    
+    
+    // const[posts,setposts] = useState([]);
 
-  const [name, setName] = useState("");
-  // const[posts,setposts] = useState([]);
 
   const handleSubmit = () => {
     if (name.length === 0) {
@@ -24,9 +26,12 @@ const SideBar = (props) => {
     } else if (dist === undefined) {
       alert("Calculate distance");
     } else {
+        const now = new Date();
+        const Id = parseInt(now.getTime());
       const t_dist = parseFloat(dist);
       const t_amt = parseFloat(rpk1);
       let tripData = new FormData();
+      tripData.append("Id",Id);
       tripData.append("Trip_date", date);
       tripData.append("Name", name);
       tripData.append("Trip", trip);
@@ -36,7 +41,7 @@ const SideBar = (props) => {
 
       axios({
         method: "post",
-        url: "https://embeddedcreation.in/deeGIS/backend/markers.php",
+        url: "http://localhost/markers.php",
         data: tripData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
@@ -48,17 +53,16 @@ const SideBar = (props) => {
           console.log(response);
         });
     }
-  };
+  }
 
-  return (
-    // <Menu>
-    <div className="sidebar">
-      <div style={{ display: "flex" }}>
-        <div>
-          <img className="logo" src={logo} />
-        </div>
+    
+    return(
+        // <Menu>
+        <div className="sidebar">
+        <div style={{display:"flex"}}>
+        <div><img className="logo" src={smartCity}/></div>
         <div className="nmc">
-          Nagpur Smart & Sustainable City Development Corporation LTD
+        Nagpur Smart & Sustainable City Development Corporation LTD
         </div>
       </div>
       <h1 className="heading">Route Details</h1>
@@ -84,7 +88,9 @@ const SideBar = (props) => {
           Enter Record
         </button>
         <button className="btn">
+            <Link to="/Records" style={{ textDecoration: 'none', color: 'inherit' }}>
           View Records
+            </Link>
         </button>
         <button className="btn" onClick={() => window.location.reload(true)}>
           Clear Route
@@ -107,5 +113,6 @@ const SideBar = (props) => {
     // </Menu>
   );
 };
+
 
 export default SideBar;

@@ -1,5 +1,6 @@
 .sidebar {
-  width: 100%;
+  width: 23%;
+
   height: 100%;
   margin-top: 0%;
   padding: 10px;
@@ -77,13 +78,15 @@
 }
 .logo {
   margin-top: 25px;
-  height: 90px !important;
-  width: 90px !important;
+  height: 70px !important;
+  width: 70px !important;
   align-self: center;
 }
+
 .nmc {
   font-size: 18px;
   font-weight: bold;
   align-self: center;
   margin-top: 12px;
 }
+
