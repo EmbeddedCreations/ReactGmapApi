@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Link} from "react-router-dom";
 import "./SideBar.css";
 import nmc from "../assets/nmc.jpg";
 import logo from "../assets/smart-city-nagpur-logo.png";
@@ -83,6 +83,10 @@ const SideBar = (props) => {
         <button className="btn" onClick={handleSubmit}>
           Enter Record
         </button>
+        {/* <Link to="/Records">
+        <button className="btn">
+          View Records
+        </button></Link> */}
         <button className="btn" onClick={() => window.location.reload(true)}>
           Clear Route
         </button>
