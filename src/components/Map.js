@@ -23,11 +23,13 @@ const Map = (props) => {
     height: "100vh",
     width: "100%",
   };
+  
   const [coordinates, setCoordinates] = useState(null);
   const [panorama, setPanorama] = useState(null);
   const handlePanoramaLoad = (panorama) => {
     setPanorama(panorama);
   };
+
   // const [selectedLayer, setSelectedLayer] = useState('traffic');
   const [selctedMarker, setSelectedMarker] = useState();
   const [setCoords, setSelectedCoords] = useState([]);
@@ -337,7 +339,10 @@ const Map = (props) => {
               />
             </div>
           </div>
-          <select onChange={handleOptionSelect} >
+          <select
+            onChange={handleOptionSelect}
+            style={{ marginLeft: -10, fontSize: 12, marginTop: 5 }}
+          >
             {allOptions.map((option) => (
               <option key={option} value={option}>
                 {option}

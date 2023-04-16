@@ -12,6 +12,7 @@ const SideBar =(props)=>{
     const rpk1=rpk.toFixed(2);
     const [date,setDate] = useState('');
     const [name,setName] = useState('');
+    
     // const[posts,setposts] = useState([]);
 
     const handleSubmit=()=>{
@@ -24,10 +25,12 @@ const SideBar =(props)=>{
         }else if(dist === undefined){
             alert("Calculate distance")
         }else{
-             
+            const now = new Date();
+            const Id = now.getTime();
             const t_dist = parseFloat(dist);
             const t_amt = parseFloat(rpk1);
             let tripData = new FormData();
+            tripData.append('Id',Id);
             tripData.append('Trip_date',date);
             tripData.append('Name',name);
             tripData.append('Trip',trip);
@@ -37,7 +40,7 @@ const SideBar =(props)=>{
 
             axios({
                 method:'post',
-                url : 'https://embeddedcreation.in/deeGIS/backend/markers.php',
+                url : 'http://localhost/markers.php',
                 data: tripData,
                 config:{headers : {'Content-Type':'multipart/form-data'}}
 
