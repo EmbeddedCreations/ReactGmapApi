@@ -46,10 +46,10 @@ const SideBar =(props)=>{
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
         .then(function (response) {
-          console.log(response);
           alert("new Contact Added succesfully");
         })
         .catch(function (response) {
+          alert("Please Try Again");
           console.log(response);
         });
     }
