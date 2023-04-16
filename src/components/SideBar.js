@@ -83,10 +83,9 @@ const SideBar = (props) => {
         <button className="btn" onClick={handleSubmit}>
           Enter Record
         </button>
-        {/* <Link to="/Records">
         <button className="btn">
           View Records
-        </button></Link> */}
+        </button>
         <button className="btn" onClick={() => window.location.reload(true)}>
           Clear Route
         </button>
