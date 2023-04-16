@@ -2,11 +2,6 @@ import {
   GoogleMap,
   Marker,
   Polyline,
-  TrafficLayer,
-  HeatmapLayer,
-  TransitLayer,
-  BicyclingLayer,
-  KmlLayer,
   StreetViewPanorama,
 } from "@react-google-maps/api";
 //importing images,required api to plot the maps and markers
@@ -35,30 +30,32 @@ const Map = (props) => {
   const [values, setValues] = useState([]);
   const [markers, setMarker] = useState([]);
   const [checkValue, setCheckValue] = useState([]);
-  const [center, setCenter] = useState({ lat:21.112709045410156, lng: 79.06546783447266 });
-  const [selectedOption, setSelectedOption] = useState('Select');
-  const [allOptions,setAllOptions] = useState(['Select Path']);
+  const [center, setCenter] = useState({
+    lat: 21.112709045410156,
+    lng: 79.06546783447266,
+  });
+  const [selectedOption, setSelectedOption] = useState("Select");
+  const [allOptions, setAllOptions] = useState(["Select Path"]);
 
   const handleOptionSelect = (event) => {
-    const option = event.target.value
+    const option = event.target.value;
     setSelectedOption(option);
-    
-    
   };
-  useEffect(()=>{
-    if(checkValue.includes("A")){
-      if(selectedOption == 'Path1'){
+  useEffect(() => {
+    if (checkValue.includes("A")) {
+      if (selectedOption == "Sainath Nagar Ring Road") {
         setSelectedCoords(path1);
         setValues(c_name1);
-      }if(selectedOption == 'Path2'){
+      }
+      if (selectedOption == "Airport Wardha Road") {
         setSelectedCoords(path2);
         setValues(c_name2);
-      }if(selectedOption == 'Select path'){
+      }
+      if (selectedOption == "Select path") {
         setSelectedCoords([]);
       }
     }
-  },[selectedOption]);
-  
+  }, [selectedOption]);
 
   //Function To calculate Distance between two markers
   function haversine_distance(mk1, mk2) {
@@ -109,7 +106,6 @@ const Map = (props) => {
       setValues([...values, marker.MarkerID]);
       setM_type(marker.Marker_Type);
     } else {
-    
       if (m_type == marker.Marker_Type && !values.includes(marker.MarkerID)) {
         setSelectedCoords([...setCoords, coordinates]);
         setValues([...values, marker.MarkerID]);
@@ -123,9 +119,7 @@ const Map = (props) => {
           const findElement = "" + marker.MarkerID + "";
           const index = values.indexOf(findElement);
           DeleteClick(index);
-
-        } 
-       
+        }
       }
     }
   };
@@ -146,7 +140,6 @@ const Map = (props) => {
     // Update the state with the new arrays
     setValues(updatedValues);
     setSelectedCoords(updatedCoords);
-
   };
 
   //Fetching of Data from localHost From mysql
@@ -170,37 +163,36 @@ const Map = (props) => {
     } else {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
-    if(value== 'A' && checked){
-      setAllOptions(['Select path','Path1','Path2']);
+    if (value == "A" && checked) {
+      setAllOptions([
+        "Select path",
+        "Sainath Nagar Ring Road",
+        "Airport Wardha Road",
+      ]);
     }
   };
-  useEffect(()=>{
-    if(!checkValue.includes(m_type)){
+  useEffect(() => {
+    if (!checkValue.includes(m_type)) {
       setSelectedCoords([]);
     }
-  },[checkValue])
-  // const renderLayer = () => {
-  //   switch (selectedLayer) {
-  //     case 'traffic':
-  //       return <TrafficLayer />;
-  //     case 'transit':
-  //       return <TransitLayer />;
-  //     case 'bicycle':
-  //       return <BicyclingLayer/>;
-  //     case 'kml':
-  //       return <KmlLayer/>;
-  //     case 'heatmap':
-  //       return <HeatmapLayer/>
-  //     default:
-  //       return null;
-  //   }
-  // };
-  // temporary array of path coordinates:- 
-  const path1 = [{lat: 21.12079167, lng: 79.02505556},{lat: 21.1181, lng: 79.0344},{lat: 21.11339722, lng: 79.04549167},{lat: 21.11255556, lng: 79.05127778}];
-  const path2 = [{lat: 21.07228611, lng: 79.06043889},{lat: 21.088025, lng: 79.06440278},{lat: 21.097642, lng: 79.070317},{lat: 21.097819, lng: 79.066972}];
+  }, [checkValue]);
+
+  // temporary array of path coordinates:-
+  const path1 = [
+    { lat: 21.12079167, lng: 79.02505556 },
+    { lat: 21.1181, lng: 79.0344 },
+    { lat: 21.11339722, lng: 79.04549167 },
+    { lat: 21.11255556, lng: 79.05127778 },
+  ];
+  const path2 = [
+    { lat: 21.07228611, lng: 79.06043889 },
+    { lat: 21.088025, lng: 79.06440278 },
+    { lat: 21.097642, lng: 79.070317 },
+    { lat: 21.097819, lng: 79.066972 },
+  ];
   //temprorary array of points in path;-
-  const c_name1 =["A48","A111","A75","A60"];
-  const c_name2 =["A96","A93","A159","A144"];
+  const c_name1 = ["A48", "A111", "A75", "A60"];
+  const c_name2 = ["A96", "A93", "A159", "A144"];
   //Function to display cummaltative distance on console
   const SendDistance = () => {
     var d = calcute_final_dist();
@@ -215,7 +207,7 @@ const Map = (props) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom = {zoom}
+          zoom={zoom}
           mapOptions
         >
           {}
@@ -233,44 +225,43 @@ const Map = (props) => {
                     options={{
                       icon:
                         marker.Marker_Type == "A"
-                          ? Type_A 
+                          ? Type_A
                           : marker.Marker_Type == "B"
                           ? Type_B
                           : marker.Marker_Type == "C"
                           ? Type_C
                           : "",
                     }}
-                    title={marker.MarkerID +"\rAgency Name: ABC\r"+" Category: YYY\r"+" Height:XX mtr\r"+" Length:XX mtr\r"+" Breadth:XX mtrs"}
+                    title={
+                      marker.MarkerID +
+                      "\rAgency Name: ABC\r" +
+                      " Category: YYY\r" +
+                      " Height:XX mtr\r" +
+                      " Length:XX mtr\r" +
+                      " Breadth:XX mtrs"
+                    }
                     onClick={() => handleMarkerClick(marker)}
                   />
                 </div>
               );
             }
-            
+
             if (props.Clear == 1) {
               props.getTrip("");
             }
           })}
 
           {/* Code to Deploy Polyline */}
-          {(selctedMarker || selectedOption != 'Select Path') && (
+          {(selctedMarker || selectedOption != "Select Path") && (
             <Polyline
-            path={setCoords}
-            strokeColor="black"
-            strokeOpacity={0.8}
-            strokeWeight={2}
-            animateMarker
-          />
+              path={setCoords}
+              strokeColor="black"
+              strokeOpacity={0.8}
+              strokeWeight={2}
+              animateMarker
+            />
           )}
-          {/* <TrafficLayer/> */}
-          {/* <BicyclingLayer/> */}
-          {/* <HeatmapLayer data={setCoords} /> */}
-          {/* <KmlLayer/> */}
-          {/* <TransitLayer/> */}
-          {/* <StreetViewPanorama
-            position={center}
-      
-          /> */}
+
           {/* {renderLayer()} */}
           {/* {selctedMarker && (
             <StreetViewPanorama
@@ -283,14 +274,6 @@ const Map = (props) => {
         </GoogleMap>
         {/* Code For Legend */}
         <div id="legend">
-          {/* <label htmlFor="layer-select">Select a layer:</label>
-      <select id="layer-select" value={selectedLayer} onChange={handleChange}>
-        <option value="traffic">Traffic</option>
-        <option value="transit">Transit</option>
-        <option value="heatmap">Heatmap</option>
-        <option value="bicycle">Bicycling</option>
-        <option value="kml">Kml</option>
-      </select> */}
           <h4>Map Legends</h4>
           <div className="style">
             <div className="para">Type A</div>
@@ -337,7 +320,10 @@ const Map = (props) => {
               />
             </div>
           </div>
-          <select onChange={handleOptionSelect} >
+          <select
+            onChange={handleOptionSelect}
+            style={{ marginLeft: -10, fontSize: 12, marginTop: 5 }}
+          >
             {allOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
