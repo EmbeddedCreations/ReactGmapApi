@@ -4,7 +4,6 @@ import { mapOptions } from "./components/MapConfiguration";
 import SideBar from "./components/SideBar";
 import "./App.css";
 import { useState } from "react";
-
 function App() {
   const { isLoaded } = useJsApiLoader({
     id: mapOptions.googleMapApiKey,
