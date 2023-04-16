@@ -5,20 +5,13 @@
   height: 100%;
 }
 
-<<<<<<< Updated upstream
-.sidebar{
-  width: 250px; 
-  height: calc(100vh - 100px); 
-  overflow-y: auto; 
-  overflow-x: hidden;
-} 
-=======
+
 .sidebar {
   
   overflow-y: scroll;
   margin: auto;
 }
->>>>>>> Stashed changes
+
 
 .map{
   width: 100%;
@@ -30,16 +23,7 @@
   .App {
     flex-direction: row;
   }
-<<<<<<< Updated upstream
-  
-  .sidebar{
-    width: 20%;
-    height: 100vh;
-    max-height: none;
-  } 
-  
-  .map{
-=======
+
 
   .sidebar {
    
@@ -48,7 +32,6 @@
   }
 
   .map {
->>>>>>> Stashed changes
     width: 80%;
     height: 100vh;
     max-height: none;

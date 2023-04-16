@@ -1,22 +1,9 @@
-<<<<<<< Updated upstream
-import React, { useState } from "react";
-
-function Records() {
-  const [setData,data] = useState([]);
-  // const data = [
-  //   { id: 1, name: "John", age: 25, city: "New York", country: "USA" },
-  //   { id: 2, name: "Jane", age: 30, city: "Paris", country: "France" },
-  //   { id: 3, name: "Bob", age: 35, city: "London", country: "UK" },
-  //   { id: 4, name: "Alice", age: 40, city: "Tokyo", country: "Japan" },
-  // ];
-=======
 import React,{ useEffect, useState }  from "react";
 import {Link} from "react-router-dom";
 
 function Records() {
 
   const [data,setData] = useState([]);
->>>>>>> Stashed changes
 
   const columns = [
     { title: "ID", field: "Id" },
@@ -27,18 +14,7 @@ function Records() {
     { title: "Distance(KM)", field: "Total_dist" },
     { title: "Revenue ₹", field: "Total_Amount" },
   ];
-<<<<<<< Updated upstream
-  // useEffect(() => {
-  //   const getMarker = async () => {
-  //     const res = await fetch(
-  //       "http://localhost/show_details.php"
-  //     );
-  //     const getData = await res.json();
-  //     setMarker(getData);
-  //   };
-  //   getMarker();
-  // }, []);
-=======
+
   useEffect(() => {
      const getData = async () => {
        const res = await fetch(
@@ -49,8 +25,7 @@ function Records() {
      };
      getData();
    }, []);
-
->>>>>>> Stashed changes
+   
   return (
     <div>
       <button>

@@ -47,20 +47,21 @@ const Map = (props) => {
     
     
   };
-  useEffect(()=>{
-    if(checkValue.includes("A")){
-      if(selectedOption == 'Path1'){
+  useEffect(() => {
+    if (checkValue.includes("A")) {
+      if (selectedOption == "Sainath Nagar Ring Road") {
         setSelectedCoords(path1);
         setValues(c_name1);
-      }if(selectedOption == 'Path2'){
+      }
+      if (selectedOption == "Airport Wardha Road") {
         setSelectedCoords(path2);
         setValues(c_name2);
-      }if(selectedOption == 'Select path'){
+      }
+      if (selectedOption == "Select path") {
         setSelectedCoords([]);
       }
     }
-  },[selectedOption]);
-  
+  }, [selectedOption]);
 
   //Function To calculate Distance between two markers
   function haversine_distance(mk1, mk2) {
@@ -172,18 +173,18 @@ const Map = (props) => {
     } else {
       setCheckValue(checkValue.filter((e) => e !== value));
     }
-    if(value== 'A' && checked){
-      setAllOptions(['Select path','Path1','Path2']);
+    if (value == "A" && checked) {
+      setAllOptions([
+        "Select path",
+        "Sainath Nagar Ring Road",
+        "Airport Wardha Road",
+      ]);
     }
   };
-<<<<<<< Updated upstream
-  useEffect(()=>{
-    if(!checkValue.includes(m_type)){
-=======
+
   useEffect(() => {
     if (!checkValue.includes(m_type)) {
       setValues([]);
->>>>>>> Stashed changes
       setSelectedCoords([]);
     }
   },[checkValue])

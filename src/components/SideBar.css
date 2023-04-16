@@ -1,19 +1,11 @@
-<<<<<<< Updated upstream
-.sidebar{
-    width: 100%;
-    height: 100%;
-    margin-top: 0%;
-    padding: 10px;
-    margin-left: 2px;
-    
-=======
+
 .sidebar {
   width: 23%;
   height: 100%;
   margin-top: 0%;
   padding: 10px;
   margin-left: 2px;
->>>>>>> Stashed changes
+
 }
 .heading{
     margin-top: 15px;
@@ -82,16 +74,7 @@
 }
 
 .btn:hover {
-<<<<<<< Updated upstream
-    box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
-    opacity: .85;
-  }
-.logo{
-    margin-top: 25px;
-    height: 70px !important;
-    width: 70px !important;
-    align-self: center;
-=======
+
   box-shadow: rgba(0, 1, 0, 0.2) 0 2px 8px;
   opacity: 0.85;
 }
@@ -101,16 +84,10 @@
   width: 70px !important;
   align-self: center;
 }
+
 .nmc {
   font-size: 18px;
   font-weight: bold;
   align-self: center;
   margin-top: 12px;
->>>>>>> Stashed changes
-}
-.nmc{
-    font-size: 22px;
-    font-weight: bold;
-    align-self: center;
-    margin-top: 12px;
 }
