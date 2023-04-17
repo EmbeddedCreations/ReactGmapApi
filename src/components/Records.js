@@ -1,6 +1,6 @@
 import React,{ useEffect, useState }  from "react";
 import {Link} from "react-router-dom";
-
+import "./Records.css";
 function Records() {
 
   const [data,setData] = useState([]);

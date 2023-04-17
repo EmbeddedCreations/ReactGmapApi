@@ -14,11 +14,10 @@ $method = $_SERVER['REQUEST_METHOD'];
 if (!$con) {
   die("Connection failed: " . mysqli_connect_error());
 }
- 
- 
+
 switch ($method) {
     case 'GET':
-      $sql = "select * from Coordinates"; 
+      $sql = "select * from Coordinates";
       break;
     case 'POST':
       $Trip_date = $_POST['Trip_date'];
