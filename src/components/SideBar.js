@@ -41,7 +41,7 @@ const SideBar =(props)=>{
 
       axios({
         method: "post",
-        url: "http://localhost/marker.php",
+        url:"https://embeddedcreation.in/deeGIS/backend/markers.php",
         data: tripData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
