@@ -325,7 +325,7 @@ const Map = (props) => {
               />
             </div>
           </div>
-          <select
+          {/* <select
             onChange={handleOptionSelect}
             style={{ marginLeft: -10, fontSize: 12, marginTop: 5 }}
           >
@@ -334,7 +334,7 @@ const Map = (props) => {
                 {option}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
       </div>
     )
