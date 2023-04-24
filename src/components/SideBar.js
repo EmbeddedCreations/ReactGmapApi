@@ -8,12 +8,21 @@ const SideBar =(props)=>{
     // const url = "";
     const trip = props.trip;
     const dist = props.dist;
+    const markers = trip.split("->").map((s, i) => ({ number: i+1, Name: s }));
     var rpk=dist*15;
     const rpk1=rpk.toFixed(2);
     const today = new Date().toISOString().substr(0, 10);
     const [date, setDate] = useState(today);
     const [name,setName] = useState('');
-    
+    // const [user,setUser] = useState();
+    const [longitude,setLongitude] = useState();
+    const [Latitude,setLatitude] = useState();
+    const [Zone,setZone] = useState();
+    const columns =[
+      {title: "No.",field:"number"},
+      {title : "Board Name",field:"Name"},
+    ]
+    const user = 'user';
     
     // const[posts,setposts] = useState([]);
 
@@ -64,69 +73,104 @@ const SideBar =(props)=>{
         <div className="nmc">
         Nagpur Smart & Sustainable City Development Corporation LTD
         </div>
-      </div>
-      <h1 className="heading">Admin Panel</h1>
-      <div>
-        <p className="label">Zone type:</p>
-        <input
-          className="input"
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-      </div>
-      <div>
-        <p className="label">Latitude</p>
-        <input
-          className="input"
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-      </div>
-      <div>
-        <p className="label">Longitude</p>
-        <input
-          className="input"
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-      </div>
-      {/* <div>
-        <p className="label">Date:</p>
-        <input
-          className="input"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div> */}
-      <div>
-        <button className="btn" onClick={handleSubmit}>
-          Enter coordinates
-        </button>
-        <button className="btn">
-            <Link to="/Records" style={{ textDecoration: 'none', color: 'inherit' }}>
-          View Records
-            </Link>
-        </button>
-        {/* <button className="btn" onClick={() => window.location.reload(true)}>
-          Clear Route
-        </button> */}
-      </div>
-      {/* <div>
-        <p className="label">Path:</p>
-        <p className="label">{props.trip}</p>
-      </div>
-      <div>
-        <p className="label">
-          Dist: {props.dist}
-          {props.dist > 0 ? " Km" : ""}
-        </p>
-      </div>
-      <div>
-        <p className="label">Generated Amount: {rpk1}{(props.dist > 0)? " Rs":""}</p>
-      </div> */}
+       </div>
+      {user === 'Admin'?
+        <div>
+          <div>
+            <p className="label">Zone type:</p>
+            <input
+              className="input"
+              type="text"
+              onChange={(e) => setZone(e.target.value)}
+            ></input>
+          </div>
+          <div>
+            <p className="label">Latitude</p>
+            <input
+              className="input"
+              type="text"
+              onChange={(e) => setLatitude(e.target.value)}
+            ></input>
+           </div>
+           <div>
+              <p className="label">Longitude</p>
+              <input
+                className="input"
+                type="text"
+                onChange={(e) => setLongitude(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <button className="btn">
+                Enter coordinates
+              </button>
+              <button className="btn">
+                  <Link to="/Records" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    View Records
+                  </Link>
+              </button>
+            </div>
+        </div>:
+        <div>
+          <div>
+            <p className="label">Name:</p>
+            <input
+              className="input"
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+          </div>
+          <div>
+            <p className="label">Date:</p>
+            <input
+              className="input"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div>
+            <button className="btn" onClick={handleSubmit}>
+              Enter Record
+            </button>
+            <button className="btn" onClick={() => window.location.reload(true)}>
+              Clear Route
+            </button>
+          </div>
+          <div>
+            <p className="label">Path:</p>
+            <p className="label">{props.trip}</p>
+          </div>
+          <div>
+            <p className="label">
+              Dist: {props.dist}
+              {props.dist > 0 ? " Km" : ""}
+            </p>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  {columns.map((column) => (
+                    <th key={column.field}>{column.title}</th>
+                  ))}
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {markers.map((row) => (
+                  <tr key={row.id}>
+                    {columns.map((column) => (
+                      <td key={row.id}>{row[column.field]}</td>
+                    ))}
+                    <td><button>Upload</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>}
     </div>
-    // </Menu>
   );
 };
 
