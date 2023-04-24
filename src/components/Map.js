@@ -12,6 +12,19 @@ import React, { useEffect, useState, useRef } from "react";
 
 import "./Map.css";
 
+const getImageSource = (zone) => {
+  switch (zone) {
+    case "A":
+      return Type_A;
+    case "B":
+      return Type_B;
+    case "C":
+      return Type_C;
+    default:
+      return "";
+  }
+};
+
 const Map = (props) => {
   const { isLoaded } = props;
   const containerStyle = {
@@ -38,6 +51,8 @@ const Map = (props) => {
   });
   const [selectedOption, setSelectedOption] = useState("Select");
   const [allOptions, setAllOptions] = useState(["Select Path"]);
+  const [unique_Type,set_uniqueType] = useState([]);
+
 
   const handleOptionSelect = (event) => {
     const option = event.target.value;
@@ -151,10 +166,40 @@ const Map = (props) => {
         "https://embeddedcreation.in/deeGIS/backend/markers.php"
       );
       const getData = await res.json();
+      const array = Array.from(new Set(getData.map(item => item.Marker_Type)));
+      const objArr = array.map((value, index) => {
+        const obj = {
+          id: index + 1,
+          zone: value
+        };
+        return obj;
+      });
+      
+      
+      set_uniqueType(objArr);
       setMarker(getData);
+      
     };
     getMarker();
   }, []);
+  useEffect(()=>{
+    const set_Legend =()=>{
+      const array = Array.from(new Set(markers.map(item => item.Marker_Type)));
+      const objArr = array.map((value, index) => {
+        const obj = {
+          id: index + 1,
+          zone: value
+        };
+        return obj;
+      });
+      
+      
+      set_uniqueType(objArr);
+      console.log(unique_Type)
+    }
+    set_Legend();
+  },[markers]);
+  
 
   //Function to see the legend checkbox
   const handleChange = (e) => {
@@ -280,61 +325,23 @@ const Map = (props) => {
         {/* Code For Legend */}
         <div id="legend">
           <h4>Map Legends</h4>
-          <div className="style">
-            <div className="para">Type A</div>
+          {unique_Type.map((Zone)=>(
+            <div key ={Zone.id} className="style">
+            <div className="para">Type {Zone.zone}</div>
             <div>
-              <img className="marker" src={Type_A} />
+              <img className="marker" src={getImageSource(Zone.zone)} />
             </div>
             <div>
               <input
                 id="checkbox"
                 className="cbox"
                 type="checkbox"
-                value="A"
+                value={Zone.zone}
                 onChange={handleChange}
               />
             </div>
           </div>
-          <div className="style">
-            <div className="para">Type B</div>
-            <div>
-              <img className="marker" src={Type_B} />
-            </div>
-            <div>
-              <input
-                id="checkbox1"
-                className="cbox"
-                type="checkbox"
-                value="B"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="style">
-            <div className="para">Type C</div>
-            <div>
-              <img className="marker" src={Type_C} />
-            </div>
-            <div>
-              <input
-                id="checkbox2"
-                className="cbox"
-                type="checkbox"
-                value="C"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          {/* <select
-            onChange={handleOptionSelect}
-            style={{ marginLeft: -10, fontSize: 12, marginTop: 5 }}
-          >
-            {allOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select> */}
+          ))}
         </div>
       </div>
     )
