@@ -1,15 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./Login.css"
-import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [credentials,setCredentials] = useState('');
 
+
+  useEffect(() => {
+    const getCredentials = async () => {
+      const res = await fetch(
+        "http://localhost/login.php"
+      );
+      const getData = await res.json();
+      setCredentials(getData);  
+    };
+    getCredentials();
+  }, []);
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle login logic here
     console.log(`Username: ${username}, Password: ${password}`);
+    if(username === '' || password === ''){
+      window.alert("Please Enter All The Credentials Properly");
+    }
+    const creds = credentials.find(credentials => credentials.UserName === username);
+    console.log(creds);
+    if(creds === undefined){
+      // I want to route to /Map  while also sending a prop whose value would be creds.Type using link
+      window.alert("UserName Does not Exists");
+    }else{
+      if(creds.Password === password){
+        props.onLogin(creds.Type);
+        window.alert("Succesful Login");
+      }else{
+        window.alert("Incorrect password");
+      }
+    }
   };
 
   return (
@@ -37,7 +66,8 @@ const LoginPage = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <Link to="/Map"><button type="submit">Log In</button></Link>
+         
+          <button type="submit">Log In</button>
       </form>
     </div>
   );
