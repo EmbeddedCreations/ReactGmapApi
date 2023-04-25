@@ -147,28 +147,6 @@ const SideBar =(props)=>{
               {props.dist > 0 ? " Km" : ""}
             </p>
           </div>
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  {columns.map((column) => (
-                    <th key={column.field}>{column.title}</th>
-                  ))}
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {markers.map((row) => (
-                  <tr key={row.id}>
-                    {columns.map((column) => (
-                      <td key={row.id}>{row[column.field]}</td>
-                    ))}
-                    <td><button>Upload</button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>}
     </div>
   );
