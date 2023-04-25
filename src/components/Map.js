@@ -339,6 +339,17 @@ const Map = (props) => {
             </div>
           </div>
           ))}
+          <select
+            onChange={handleOptionSelect}
+            style={{ marginLeft: -10, fontSize: 12, marginTop: 5 }}
+          >
+            {allOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+
+          </select>
         </div>
       </div>
     )
