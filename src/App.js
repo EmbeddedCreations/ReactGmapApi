@@ -1,11 +1,12 @@
 import { useJsApiLoader } from "@react-google-maps/api";
 import { mapOptions } from "./components/MapConfiguration";
-import Records from "./components/Records"
+import Records from "./components/Records";
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Map from "./components/Map";
+import LoginPage from "./components/Login";
 
 function App() {
   const { isLoaded } = useJsApiLoader({
@@ -26,8 +27,11 @@ function App() {
   }
   return (
     <div className="App">
-        <Routes>
-        <Route path="/" element={
+      <Routes>
+        <Route path="/" exact element={<LoginPage />} />
+        <Route
+          path="/Map"
+          element={
             <>
               <SideBar
                 className="sidebar"
@@ -43,9 +47,10 @@ function App() {
                 getDist={getDist}
               />
             </>
-          } />
-          <Route path="/Records" exact element={<Records />} />
-        </Routes>
+          }
+        />
+        <Route path="/Records" exact element={<Records />} />
+      </Routes>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import "./Login.css"
+import {Link} from "react-router-dom";
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +13,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container">
+    
+    <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -34,7 +37,7 @@ const LoginPage = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <button type="submit">Log In</button>
+        <Link to="/Map"><button type="submit">Log In</button></Link>
       </form>
     </div>
   );
