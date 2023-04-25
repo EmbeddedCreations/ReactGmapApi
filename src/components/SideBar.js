@@ -22,7 +22,7 @@ const SideBar =(props)=>{
       {title: "No.",field:"number"},
       {title : "Board Name",field:"Name"},
     ]
-    const user = 'user';
+    const user = props.user;
     
     // const[posts,setposts] = useState([]);
 

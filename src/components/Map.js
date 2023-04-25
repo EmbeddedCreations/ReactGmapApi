@@ -174,11 +174,8 @@ const Map = (props) => {
         };
         return obj;
       });
-      
-      
       set_uniqueType(objArr);
-      setMarker(getData);
-      
+      setMarker(getData);  
     };
     getMarker();
   }, []);
