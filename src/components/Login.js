@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import "./Login.css"
 import { useNavigate } from 'react-router-dom';
+import smartCity from "../assets/smart-city-nagpur-logo.png";
+import smartbg from "../assets/download.jpeg";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState('');
@@ -42,7 +44,12 @@ const LoginPage = (props) => {
   };
 
   return (
-    
+    <div className='main'>
+    <div style={{display:"flex",marginTop:"50px"}}>
+    <div><img className="logo" src={smartCity}/></div>
+    <div className="nmc">
+        Nagpur Smart & Sustainable City Development Corporation LTD
+        </div> </div>   
     <div className='login'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
@@ -69,6 +76,7 @@ const LoginPage = (props) => {
          
           <button type="submit">Log In</button>
       </form>
+    </div>
     </div>
   );
 };
