@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
-import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import smartCity from "../assets/smart-city-nagpur-logo.png";
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -13,7 +14,12 @@ const LoginPage = () => {
   };
 
   return (
-    
+    <div className='main'>
+    <div style={{display:"flex",marginTop:"50px"}}>
+    <div><img className="logo" src={smartCity}/></div>
+    <div className="nmc">
+        Nagpur Smart & Sustainable City Development Corporation LTD
+        </div> </div>   
     <div className='login'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
@@ -39,6 +45,7 @@ const LoginPage = () => {
         </div>
         <Link to="/Map"><button type="submit">Log In</button></Link>
       </form>
+    </div>
     </div>
   );
 };

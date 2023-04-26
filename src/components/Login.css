@@ -1,84 +1,60 @@
-/* .form-group {
-  margin-bottom: 20px;
-}
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
+.login {
+  margin: 0 auto;
+  margin-top: 130px;
+  padding: 50px;
   border: 1px solid #ccc;
-  font-size: 16px;
-  margin-top: 5px;
+  border-radius: 10px;
+  width: 400px;
 }
 
-button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
+.login h1 {
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3e8e41;
-} */
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin-bottom: 30px;
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-label {
+.form-group label {
   display: block;
-  font-weight: bold;
   margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-input {
-  display: block;
+.form-group input[type="text"],
+.form-group input[type="password"] {
   width: 100%;
   padding: 10px;
-  border-radius: 4px;
   border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 16px;
-  margin-top: 5px;
 }
 
-button {
+button[type="submit"] {
   background-color: #4CAF50;
-  border: none;
-  color: white;
+  color: #fff;
   padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  border: none;
+  border-radius: 5px;
   font-size: 16px;
-  border-radius: 4px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-button:hover {
+button[type="submit"]:hover {
   background-color: #3e8e41;
 }
-.login{
-  margin-left: 650px;
-    margin-top: 200px;
+.logo{
+  width:150px;
+  height: 150px;
+  margin:0 auto;
+}
+.nmc{
+  font-size:25px;
+  margin-left:20px;
+  align-items:center;
+  justify-content:center;
 }
