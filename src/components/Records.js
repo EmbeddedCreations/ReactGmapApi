@@ -28,12 +28,12 @@ function Records() {
    
   return (
     <div>
-      <button>
+      {/* <button>
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           Back
         </Link>
-      </button>
-      <h1>Records Table</h1>
+      </button> */}
+      <h1 className="heading">Records Table</h1>
       <table>
         <thead>
           <tr>
