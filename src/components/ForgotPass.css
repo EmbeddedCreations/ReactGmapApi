@@ -1,0 +1,68 @@
+.forgot-password {
+    margin: 0 auto;
+    margin-top: 130px;
+    padding: 50px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 400px;
+  }
+  
+  .forgot-password h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .form-group input[type="email"],
+  .form-group input[type="password"],
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .button-group button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .button-group button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .logo{
+    width:150px;
+    height: 150px;
+    margin:0 auto;
+  }
+  
+  .nmc{
+    font-size:25px;
+    margin-left:20px;
+    align-items:center;
+    justify-content:center;
+  }
+  
