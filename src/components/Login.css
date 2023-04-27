@@ -1,4 +1,3 @@
-
 .login {
   margin: 0 auto;
   margin-top: 130px;
@@ -47,14 +46,24 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #3e8e41;
 }
+
 .logo{
   width:150px;
   height: 150px;
   margin:0 auto;
 }
+
 .nmc{
   font-size:25px;
   margin-left:20px;
   align-items:center;
   justify-content:center;
+}
+
+.forgot-password {
+  /* display: inline-block; */
+  margin-top: 5px;
+  font-size: 16px;
+  color: #4CAF50;
+  cursor: pointer;
 }
