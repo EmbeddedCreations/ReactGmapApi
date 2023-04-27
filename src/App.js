@@ -3,7 +3,7 @@ import { mapOptions } from "./components/MapConfiguration";
 import Records from "./components/Records";
 import "./App.css";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route ,Navigate} from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Map from "./components/Map";
 import LoginPage from "./components/Login";
@@ -15,6 +15,13 @@ function App() {
   });
   const [trip, setTrip] = useState("");
   const [dist, setDist] = useState();
+  const[user,setUser] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  function handleUserLogin(user) {
+    setUser(user);
+    setIsAuthenticated(true);
+  }
   function getTrip(trip) {
     setTrip(trip);
   }
@@ -25,32 +32,43 @@ function App() {
   function setClear(cr) {
     isClear(1);
   }
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" exact element={<LoginPage />} />
-        <Route
-          path="/Map"
-          element={
+        <Routes>
+          {isAuthenticated ? (
             <>
-              <SideBar
-                className="sidebar"
-                trip={trip}
-                setClear={setClear}
-                dist={dist}
+              <Route
+                path="/Map"
+                element={
+                  <>
+                    <SideBar
+                      className="sidebar"
+                      trip={trip}
+                      setClear={setClear}
+                      dist={dist}
+                      user={user}
+                    />
+                    <Map
+                      className="map"
+                      isLoaded={isLoaded}
+                      getTrip={getTrip}
+                      Clear={clear}
+                      getDist={getDist}
+                    />
+                  </>
+                }
               />
-              <Map
-                className="map"
-                isLoaded={isLoaded}
-                getTrip={getTrip}
-                Clear={clear}
-                getDist={getDist}
-              />
+              <Route path="/Records" element={<Records />} />
             </>
-          }
-        />
-        <Route path="/Records" exact element={<Records />} />
-      </Routes>
+          ) : (
+            <Route
+              path="/*"
+              element={<LoginPage onLogin={handleUserLogin} />}
+            />
+          )}
+          <Route path="/" element={<Navigate to="/Map" replace />} />
+        </Routes>
     </div>
   );
 }
