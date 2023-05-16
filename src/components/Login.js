@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import smartCity from "../assets/smart-city-nagpur-logo.png";
-import smartbg from "../assets/download.jpeg";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState('');
