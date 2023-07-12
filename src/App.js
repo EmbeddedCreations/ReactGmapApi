@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route ,Navigate} from "react-router-do
 import SideBar from "./components/SideBar";
 import Map from "./components/Map";
 import LoginPage from "./components/Login";
+import RegisterPage from "./components/Register";
 
 function App() {
   const { isLoaded } = useJsApiLoader({
@@ -67,6 +68,7 @@ function App() {
               element={<LoginPage onLogin={handleUserLogin} />}
             />
           )}
+          <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/" element={<Navigate to="/Map" replace />} />
         </Routes>
     </div>
