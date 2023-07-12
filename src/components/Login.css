@@ -1,19 +1,44 @@
-.login {
-  margin: 0 auto;
-  margin-top: 130px;
-  padding: 50px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 400px;
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.login h1 {
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.nmc {
+  font-size: 25px;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.login-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  word-wrap: break-word;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 .form-group label {
@@ -30,10 +55,11 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -41,29 +67,48 @@ button[type="submit"] {
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
+  width: 100%;
 }
 
 button[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
-.logo{
-  width:150px;
-  height: 150px;
-  margin:0 auto;
-}
-
-.nmc{
-  font-size:25px;
-  margin-left:20px;
-  align-items:center;
-  justify-content:center;
-}
-
 .forgot-password {
-  /* display: inline-block; */
   margin-top: 5px;
+  text-align: center;
   font-size: 16px;
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
+}
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input input[type="password"] {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+}
+
+.eye-icon svg {
+  width: 100%;
+  height: 100%;
 }
