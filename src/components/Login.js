@@ -26,20 +26,20 @@ const LoginPage = (props) => {
     event.preventDefault();
 
     // Form validations
-    const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
-    const passwordRegex = /^[a-zA-Z0-9]{4,}$/;
+    // const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
+    // const passwordRegex = /^[a-zA-Z0-9]{4,}$/;
 
-    if (!username.match(usernameRegex)) {
-      setErrorMessage(
-        "Username should be at least 4 characters long, starting with alphabets and alphanumeric"
-      );
-      return;
-    }
+    // if (!username.match(usernameRegex)) {
+    //   setErrorMessage(
+    //     "Username should be at least 4 characters long, starting with alphabets and alphanumeric"
+    //   );
+    //   return;
+    // }
 
-    if (!password.match(passwordRegex)) {
-      setErrorMessage("Password should be at least 4 characters long");
-      return;
-    }
+    // if (!password.match(passwordRegex)) {
+    //   setErrorMessage("Password should be at least 4 characters long");
+    //   return;
+    // }
 
     // Handle login logic here
     console.log(`Username: ${username}, Password: ${password}`);
