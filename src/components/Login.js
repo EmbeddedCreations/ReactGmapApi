@@ -13,7 +13,7 @@ const LoginPage = (props) => {
 
   useEffect(() => {
     const getCredentials = async () => {
-      const res = await fetch("http://localhost/login.php");
+      const res = await fetch("https://embeddedcreation.in/deeGIS/backend/login.php");
       const getData = await res.json();
       setCredentials(getData);
     };
