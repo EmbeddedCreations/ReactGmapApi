@@ -3,10 +3,12 @@
   flex-direction: column;
   margin-top: 0;
   height: 100%;
+  overflow-x: hidden;
 }
 .sidebar {
   overflow-y: scroll;
   margin: auto;
+  overflow-x: hidden;
 }
 
 

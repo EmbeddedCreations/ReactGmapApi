@@ -4,7 +4,15 @@
   height: 100%;
   margin-top: 0%;
   padding: 10px;
-  margin-left: 2px;
+  margin-left: 10px;
+  overflow-x: hidden;
+}
+@media (max-width: 778px) { /* Adjust the breakpoint as needed */
+  .sidebar {
+    width: 90%;
+    overflow-x: hidden;
+    margin: 10px;
+  }
 }
 .heading {
   margin-top: 25px;
