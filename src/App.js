@@ -2,7 +2,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { mapOptions } from "./components/MapConfiguration";
 import Records from "./components/Records";
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route ,Navigate} from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Map from "./components/Map";
@@ -19,10 +19,23 @@ function App() {
   const[user,setUser] = useState();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    const storedAuth = localStorage.getItem('isAuthenticated');
+    if (storedAuth) {
+      setIsAuthenticated(JSON.parse(storedAuth));
+    }
+  }, []);
+
   function handleUserLogin(user) {
     setUser(user);
     setIsAuthenticated(true);
+    localStorage.setItem('isAuthenticated', true);
   }
+  const handleUserLogout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
+  };
   function getTrip(trip) {
     setTrip(trip);
   }
