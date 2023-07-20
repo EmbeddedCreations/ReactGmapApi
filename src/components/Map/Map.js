@@ -2,12 +2,11 @@ import {
   GoogleMap,
   Marker,
   Polyline,
-  StreetViewPanorama,
 } from "@react-google-maps/api";
 //importing images,required api to plot the maps and markers
-import Type_A from "../assets/A.png";
-import Type_B from "../assets/B.png";
-import Type_C from "../assets/C.png";
+import Type_A from "../../assets/A.png";
+import Type_B from "../../assets/B.png";
+import Type_C from "../../assets/C.png";
 import React, { useEffect, useState, useRef } from "react";
 
 import "./Map.css";
@@ -245,7 +244,6 @@ const Map = (props) => {
     var d = calcute_final_dist();
     props.getDist(d);
   };
-  const google = window.google;
   const zoom = 13;
   //Loading of Google Map
   return (
@@ -308,16 +306,6 @@ const Map = (props) => {
               animateMarker
             />
           )}
-
-          {/* {renderLayer()} */}
-          {/* {selctedMarker && (
-            <StreetViewPanorama
-              // position={coordinates}
-              // position={{ lat: 21.12079167, lng: 79.02505556}}
-              visible={panorama !== null}
-              onLoad={handlePanoramaLoad}
-            />
-          )} */}
         </GoogleMap>
         {/* Code For Legend */}
         <div id="legend">
