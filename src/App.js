@@ -1,13 +1,13 @@
 import { useJsApiLoader } from "@react-google-maps/api";
-import { mapOptions } from "./components/MapConfiguration";
-import Records from "./components/Records";
+import { mapOptions } from "./components/Map/MapConfiguration";
+import Records from "./components/Records/Records";
 import "./App.css";
 import { useState,useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route ,Navigate} from "react-router-dom";
-import SideBar from "./components/SideBar";
-import Map from "./components/Map";
-import LoginPage from "./components/Login";
-import RegisterPage from "./components/Register";
+import SideBar from "./components/Sidebar/SideBar";
+import Map from "./components/Map/Map";
+import LoginPage from "./components/Login/Login";
+import RegisterPage from "./components/Register/Register";
 
 function App() {
   const { isLoaded } = useJsApiLoader({

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SideBar.css";
-import smartCity from "../assets/smart-city-nagpur-logo.png";
+import smartCity from "../../assets/smart-city-nagpur-logo.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 const SideBar = (props) => {
-  // const url = "";
   const trip = props.trip;
   const dist = props.dist;
   const markers = trip.split("->").map((s, i) => ({ number: i + 1, Name: s }));
@@ -14,14 +12,9 @@ const SideBar = (props) => {
   const today = new Date().toISOString().substr(0, 10);
   const [date, setDate] = useState(today);
   const [name, setName] = useState("");
-  // const [user,setUser] = useState();
   const [longitude, setLongitude] = useState();
   const [Latitude, setLatitude] = useState();
   const [Zone, setZone] = useState();
-  const columns = [
-    { title: "No.", field: "number" },
-    { title: "Board Name", field: "Name" },
-  ];
   const user = props.user;
 
   const handleSubmit = () => {

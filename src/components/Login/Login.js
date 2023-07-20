@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
-import smartCity from "../assets/smart-city-nagpur-logo.png";
+import smartCity from "../../assets/smart-city-nagpur-logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState("");
@@ -20,26 +19,8 @@ const LoginPage = (props) => {
     getCredentials();
   }, []);
 
-  const navigate = useNavigate();
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Form validations
-    // const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
-    // const passwordRegex = /^[a-zA-Z0-9]{4,}$/;
-
-    // if (!username.match(usernameRegex)) {
-    //   setErrorMessage(
-    //     "Username should be at least 4 characters long, starting with alphabets and alphanumeric"
-    //   );
-    //   return;
-    // }
-
-    // if (!password.match(passwordRegex)) {
-    //   setErrorMessage("Password should be at least 4 characters long");
-    //   return;
-    // }
 
     // Handle login logic here
     console.log(`Username: ${username}, Password: ${password}`);
