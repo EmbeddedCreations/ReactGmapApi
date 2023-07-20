@@ -33,6 +33,7 @@ function App() {
   }
   const handleUserLogout = () => {
     setUser(null);
+    window.alert("You have been logged out successfully.");
     setIsAuthenticated(false);
     localStorage.removeItem('isAuthenticated');
   };
@@ -62,6 +63,7 @@ function App() {
                       setClear={setClear}
                       dist={dist}
                       user={user}
+                      onLogout={handleUserLogout}
                     />
                     <Map
                       className="map"

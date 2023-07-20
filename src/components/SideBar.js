@@ -24,15 +24,6 @@ const SideBar = (props) => {
   ];
   const user = props.user;
 
-  // const[posts,setposts] = useState([]);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    // destroy cookie or handle method
-    localStorage.clear(); // Clear all items stored in local storage
-    window.alert("You have been logged out successfully.");
-    navigate("/");
-  };
   const handleSubmit = () => {
     if (name.length === 0) {
       alert("Name Has Left Blank!");
@@ -117,7 +108,7 @@ const SideBar = (props) => {
                 View Records
               </Link>
             </button>
-            <button className="btn" onClick={handleLogout}>
+            <button className="btn" onClick={props.onLogout}>
               Logout
             </button>
           </div>
@@ -151,7 +142,7 @@ const SideBar = (props) => {
             >
               Clear Route
             </button>
-            <button className="btn" onClick={handleLogout}>
+            <button className="btn" onClick={props.onLogout}>
               Logout
             </button>
           </div>
