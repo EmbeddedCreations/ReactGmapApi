@@ -8,6 +8,7 @@ import SideBar from "./components/Sidebar/SideBar";
 import Map from "./components/Map/Map";
 import LoginPage from "./components/Login/Login";
 import RegisterPage from "./components/Register/Register";
+import NotFound from "./components/404/404";
 
 function App() {
   const { isLoaded } = useJsApiLoader({
@@ -79,12 +80,13 @@ function App() {
             </>
           ) : (
             <Route
-              path="/*"
+              path="/"
               element={<LoginPage onLogin={handleUserLogin} />}
             />
           )}
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/" element={<Navigate to="/Map" replace />} />
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
     </div>
   );
