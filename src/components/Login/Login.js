@@ -41,7 +41,6 @@ const LoginPage = (props) => {
         window.alert("Incorrect password");
       }
     }
-
     // Clear form inputs and error message
     setUsername("");
     setPassword("");
