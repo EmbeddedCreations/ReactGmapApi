@@ -162,7 +162,7 @@ const Map = (props) => {
   useEffect(() => {
     const getMarker = async () => {
       const res = await fetch(
-        "https://embeddedcreation.in/deeGIS/backend/markers.php"
+        "http://localhost/markers.php"
       );
       const getData = await res.json();
       const array = Array.from(new Set(getData.map(item => item.Marker_Type)));
