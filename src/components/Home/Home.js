@@ -33,7 +33,8 @@ function Home(props) {
         setClear={setClear}
         dist={dist}
         user={props.user}
-        onLogout={props.UserLogout}/>
+        onLogout={props.UserLogout}
+        uid ={props.uid}/>
         <Map
         className="map"
         isLoaded={isLoaded}
