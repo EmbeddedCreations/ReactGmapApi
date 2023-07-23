@@ -16,6 +16,7 @@ const SideBar = (props) => {
   const [Latitude, setLatitude] = useState();
   const [Zone, setZone] = useState();
   const user = props.user;
+  console.log(props.uid);
 
   const handleSubmit = () => {
     if (name.length === 0) {
@@ -32,6 +33,7 @@ const SideBar = (props) => {
       let tripData = new FormData();
       tripData.append("Id", Id);
       tripData.append("Trip_date", date);
+      tripData.append("User",props.uid);
       tripData.append("Name", name);
       tripData.append("Trip", trip);
       tripData.append("Marker_type", trip[0]);
@@ -40,7 +42,7 @@ const SideBar = (props) => {
 
       axios({
         method: "post",
-        url: "https://embeddedcreation.in/deeGIS/backend/markers.php",
+        url: "http://localhost/markers.php",
         data: tripData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })

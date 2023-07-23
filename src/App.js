@@ -12,6 +12,11 @@ function App() {
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const[user,setUser] = useState();
+  const[UserId,setUserId]=useState("");
+
+  const getuserUid = (user)=>{
+    setUserId(user);
+  }
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +51,7 @@ function App() {
       <Routes>
         {isAuthenticated ? (
           <>
-            <Route path="/Home/User" element={<Home className="Home" user="User" UserLogout={handleUserLogout} />}
+            <Route path="/Home/User" element={<Home uid ={UserId} className="Home" user="User" UserLogout={handleUserLogout} />}
             />
             {user === 'Admin' && (
               <>
@@ -59,7 +64,7 @@ function App() {
         ) : (
           <>
           <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<LoginPage onLogin={handleUserLogin} />} />
+          <Route path="/login" element={<LoginPage getuid ={getuserUid} onLogin={handleUserLogin} />} />
           </>
         )}
         <Route path="/register" element={<RegisterPage />} />

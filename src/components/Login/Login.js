@@ -28,6 +28,7 @@ const LoginPage = (props) => {
     if (username === "" || password === "") {
       window.alert("Please Enter All The Credentials Properly");
     }
+    
     const creds = credentials.find((credentials) => credentials.UserName === username);
     console.log(creds);
     if (creds === undefined) {
@@ -36,6 +37,7 @@ const LoginPage = (props) => {
     } else {
       if (creds.Password === password) {
         props.onLogin(creds.Type);
+        props.getuid(username);
         window.alert("Succesful Login");
       } else {
         window.alert("Incorrect password");
