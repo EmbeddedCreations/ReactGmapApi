@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Billboard Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Billboard Management System, a powerful tool designed to efficiently manage city billboards. Our platform leverages Google Maps API to provide a seamless experience for loading maps, marking billboard locations, and updating records or survey entries.
 
-## Available Scripts
+This system is aimed at city administrators, advertisers, and anyone involved in the management of billboards within a city. With our user-friendly interface and robust features, you can streamline billboard management like never before.
 
-In the project directory, you can run:
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Authors](#authors)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+- **Google Maps Integration**: Load interactive maps using Google Maps API, making it easy to visualize billboard locations.
+- **Billboard Marking**: Efficiently mark and manage billboard locations on the map.
+- **Record and Survey Management**: Easily update and maintain records and survey data related to billboards.
+- **User-Friendly Interface**: A user-friendly interface designed for both city administrators and advertisers.
+- **Real-Time Updates**: Get real-time updates on billboard status and availability.
+- **Secure Authentication**: Secure user authentication and authorization for data privacy.
+- **Customization**: Customize and categorize billboards based on location, type, and availability.
+- **Reports and Analytics**: Generate reports and analyze billboard performance.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React.js**: A powerful JavaScript library for building user interfaces.
+- **Google Maps API**: To integrate interactive maps into the system.
+- **MySQL**: A popular relational database management system for data storage.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Note:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You can ping the authors on linkedin or github discussions for any quesries or discussions.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ✨ How to install it?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```sh
+$ git clone [https://github.com/EmbeddedCreations/ReactGmapApi]
+```
 
-## Learn More
+2. Install dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+ $ npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Start the application:
 
-### Code Splitting
+```sh
+ $ npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+ 💻 The application can be accessed in a web browser at `http://localhost:3000`.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ✨ Contributing Roadmap
 
-### Making a Progressive Web App
+✨ If you have any questions or need assistance, feel free to open an issue in the repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Join us on this open-source journey, and let your love for books flourish in a limitless world of possibilities.
 
-### Advanced Configuration
+## ✨ Thank You for Your Contribution!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+🙏 Thank you for your exceptional contribution. We look forward to your continued involvement and collaboration as we strive to enhance Billboard System and provide an exceptional platform for the Public.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+🌟 We value the time and effort you put into contributing in improving Billboard System and helping us create a vibrant and user-friendly environment for book enthusiasts, and we look forward to reviewing and merging your contributions. Your dedication, skills, and commitment have played a crucial role in making Informatician the incredible platform it is today.
 
-### `npm run build` fails to minify
+✨ Once again, thank you for your contribution!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ✨ Authors
+
+[Deepak Singh](https://github.com/k-deepak04) - Author & Developer
+[Abhishek Singh](https://github.com/AbhishekPSingh07) - Author & Developer
+
+<a name="changelog"></a>
+
